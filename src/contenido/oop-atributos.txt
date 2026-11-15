@@ -1,0 +1,216 @@
+=== tema
+id: oop-atributos
+nivel: avanzado
+titulo: OOP - Atributos
+resumen: Los datos que guarda un objeto: atributos de instancia y de clase, getattr, setattr y vars.
+
+=== ejercicio
+id: oa2-leer
+titulo: Leer atributos
+=== enunciado
+Un **objeto** guarda sus datos en **atributos**. Se leen y se escriben con un punto: `objeto.atributo`.
+
+Hay dos tipos:
+- **Atributo de instancia:** es propio de cada objeto (`mi_coche.color`).
+- **Atributo de clase:** se define dentro de la clase y lo comparten todos los objetos (`ruedas = 4`).
+
+```python
+class Coche:
+    ruedas = 4          # atributo de clase
+
+mi_coche = Coche()      # crea un objeto
+mi_coche.color = "rojo" # atributo de instancia
+print(mi_coche.color)   # rojo
+```
+
+**Tu turno:** guarda en `color_coche` el color de `mi_coche` y en `num_ruedas` su número de ruedas.
+=== inicial
+class Coche:
+    ruedas = 4
+
+mi_coche = Coche()
+mi_coche.color = "rojo"
+# color_coche: el atributo color de mi_coche
+# num_ruedas: el atributo ruedas de mi_coche
+
+=== solucion
+class Coche:
+    ruedas = 4
+
+mi_coche = Coche()
+mi_coche.color = "rojo"
+color_coche = mi_coche.color
+num_ruedas = mi_coche.ruedas
+=== prueba
+expr: color_coche
+igual: "rojo"
+=== prueba
+expr: num_ruedas
+igual: 4
+
+=== ejercicio
+id: oa2-modificar
+titulo: Modificar y crear atributos
+=== enunciado
+Asignando con `=` puedes **cambiar** un atributo que ya existe o **crear** uno nuevo al instante:
+
+```python
+p.edad = 31         # cambia el valor
+p.ciudad = "Cádiz"  # crea un atributo nuevo
+```
+
+**Tu turno:** `p` es una persona de 30 años. Actualiza su `edad` a `31` y añádele el atributo `ciudad` con el valor `"Sevilla"`.
+=== inicial
+class Persona:
+    pass
+
+p = Persona()
+p.nombre = "Ana"
+p.edad = 30
+# Cambia la edad a 31 y añade ciudad = "Sevilla"
+
+=== solucion
+class Persona:
+    pass
+
+p = Persona()
+p.nombre = "Ana"
+p.edad = 30
+p.edad = 31
+p.ciudad = "Sevilla"
+=== pista
+También vale `p.edad += 1`. Para la ciudad: `p.ciudad = "Sevilla"`.
+=== prueba
+expr: p.edad
+igual: 31
+=== prueba
+expr: p.ciudad
+igual: "Sevilla"
+=== prueba
+expr: p.nombre
+igual: "Ana"
+
+=== ejercicio
+id: oa2-clase-instancia
+titulo: Atributo de clase compartido
+=== enunciado
+Un atributo de clase es **compartido**: si lo cambias en la clase, todos los objetos ven el cambio. En cambio, si asignas `objeto.atributo = ...`, solo creas un atributo propio de ese objeto y los demás no se enteran.
+
+```python
+Gato.especie = "otra"    # cambia para todos los gatos
+g1.especie = "otra"      # solo para g1
+```
+
+**Tu turno:** cambia el atributo de **clase** `especie` para que **los dos gatos**, `g1` y `g2`, tengan la especie `"Felis catus"`.
+=== inicial
+class Gato:
+    especie = "felino"
+
+g1 = Gato()
+g2 = Gato()
+# Cambia la especie de la CLASE a "Felis catus"
+
+=== solucion
+class Gato:
+    especie = "felino"
+
+g1 = Gato()
+g2 = Gato()
+Gato.especie = "Felis catus"
+=== pista
+Se cambia sobre la clase, no sobre un objeto: `Gato.especie = "Felis catus"`.
+=== prueba
+expr: g1.especie
+igual: "Felis catus"
+=== prueba
+expr: g2.especie
+igual: "Felis catus"
+
+=== ejercicio
+id: oa2-getattr
+titulo: getattr, setattr y hasattr
+=== enunciado
+Cuando el nombre del atributo está guardado en un **texto** (por ejemplo, viene del usuario), no puedes escribir `objeto.nombre`. Para eso existen tres funciones:
+
+- `setattr(objeto, "atributo", valor)` crea o cambia un atributo.
+- `hasattr(objeto, "atributo")` dice si existe (`True` / `False`).
+- `getattr(objeto, "atributo", defecto)` lo lee; si no existe, devuelve `defecto`.
+
+**Tu turno:** con el objeto `c`:
+- Crea el atributo `"modo"` con el valor `"oscuro"` usando `setattr`.
+- Guarda en `tiene` si `c` tiene el atributo `"modo"` (con `hasattr`).
+- Guarda en `tamano` el atributo `"tamano"` de `c`, o `12` si no existe (con `getattr`).
+=== inicial
+class Config:
+    pass
+
+c = Config()
+# 1) setattr: modo = "oscuro"
+# 2) tiene: ¿c tiene el atributo "modo"?
+# 3) tamano: el atributo "tamano" de c, o 12 si no existe
+
+=== solucion
+class Config:
+    pass
+
+c = Config()
+setattr(c, "modo", "oscuro")
+tiene = hasattr(c, "modo")
+tamano = getattr(c, "tamano", 12)
+=== prueba
+expr: c.modo
+igual: "oscuro"
+=== prueba
+expr: tiene
+igual: True
+=== prueba
+expr: tamano
+igual: 12
+=== exige
+patron: \bsetattr\s*\(
+mensaje: Usa setattr()
+=== exige
+patron: \bhasattr\s*\(
+mensaje: Usa hasattr()
+=== exige
+patron: \bgetattr\s*\(
+mensaje: Usa getattr()
+
+=== ejercicio
+id: oa2-vars
+titulo: Ver todos los atributos con vars()
+=== enunciado
+`vars(objeto)` devuelve un **diccionario** con todos los atributos de instancia del objeto y sus valores. Es muy útil para ver qué contiene un objeto:
+
+```python
+class Punto:
+    pass
+
+pt = Punto()
+pt.x = 1
+print(vars(pt))    # {'x': 1}
+```
+
+**Tu turno:** imprime los atributos del objeto `libro` con `print(vars(libro))`.
+=== inicial
+class Libro:
+    pass
+
+libro = Libro()
+libro.titulo = "Don Quijote"
+libro.paginas = 1000
+# Imprime los atributos de libro
+
+=== solucion
+class Libro:
+    pass
+
+libro = Libro()
+libro.titulo = "Don Quijote"
+libro.paginas = 1000
+print(vars(libro))
+=== salida
+{'titulo': 'Don Quijote', 'paginas': 1000}
+=== exige
+patron: \bvars\s*\(
+mensaje: Usa vars()

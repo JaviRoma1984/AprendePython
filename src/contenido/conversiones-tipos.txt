@@ -1,0 +1,166 @@
+=== tema
+id: conversiones-tipos
+nivel: basico
+titulo: Tipos de conversiones
+resumen: Pasar de texto a número y viceversa con int(), float(), str(), list() y bool().
+
+=== ejercicio
+id: ct-int
+titulo: De texto a entero con int()
+=== enunciado
+`"42"` (con comillas) es un **texto**, no un número: no se puede sumar con otro número. Para convertirlo se usa `int()`:
+
+```python
+texto = "7"
+numero = int(texto)    # 7, ahora sí es un entero
+numero + 1             # 8
+```
+
+**Tu turno:** convierte `texto` en un número entero y guárdalo en `numero`.
+=== inicial
+texto = "42"
+# Convierte texto a entero y guárdalo en numero
+
+=== solucion
+texto = "42"
+numero = int(texto)
+=== prueba
+expr: numero
+igual: 42
+=== prueba
+expr: texto
+igual: "42"
+desc: texto sigue siendo "42"
+
+=== ejercicio
+id: ct-float
+titulo: De texto a decimal con float()
+=== enunciado
+Si el texto tiene decimales, `int()` falla. Para eso existe `float()`:
+
+```python
+medida = float("2.5")    # 2.5
+```
+
+**Tu turno:** convierte `precio_texto` en un número decimal y guárdalo en `precio`.
+=== inicial
+precio_texto = "19.99"
+# Conviértelo a decimal y guárdalo en precio
+
+=== solucion
+precio_texto = "19.99"
+precio = float(precio_texto)
+=== prueba
+expr: precio
+igual: 19.99
+
+=== ejercicio
+id: ct-str
+titulo: De número a texto con str()
+=== enunciado
+No se puede unir un texto con un número directamente: `"Tengo " + 30` da error. Hay que convertir el número a texto con `str()`:
+
+```python
+dias = 3
+frase = "Faltan " + str(dias) + " días"   # "Faltan 3 días"
+```
+
+**Tu turno:** crea `mensaje` con el texto `Tengo 30 años` usando la variable `edad` (conviértela con `str()`).
+=== inicial
+edad = 30
+# Crea mensaje uniendo textos: "Tengo " + ... + " años"
+
+=== solucion
+edad = 30
+mensaje = "Tengo " + str(edad) + " años"
+=== pista
+`mensaje = "Tengo " + str(edad) + " años"`. Cuidado con los espacios dentro de las comillas.
+=== prueba
+expr: mensaje
+igual: "Tengo 30 años"
+=== exige
+patron: \bstr\s*\(
+mensaje: Convierte el número con str()
+
+=== ejercicio
+id: ct-truncar-redondear
+titulo: int() no redondea
+=== enunciado
+Al convertir un decimal con `int()`, Python **corta** la parte decimal; no redondea:
+
+```python
+int(7.9)      # 7
+round(7.9)    # 8  (round sí redondea)
+```
+
+**Tu turno:** a partir de `valor`, guarda en `entero` el resultado de `int()` y en `redondeado` el de `round()`.
+=== inicial
+valor = 7.9
+# entero: con int()
+# redondeado: con round()
+
+=== solucion
+valor = 7.9
+entero = int(valor)
+redondeado = round(valor)
+=== prueba
+expr: entero
+igual: 7
+=== prueba
+expr: redondeado
+igual: 8
+
+=== ejercicio
+id: ct-list-bool
+titulo: list() y bool()
+=== enunciado
+- `list(texto)` convierte un texto en una lista con sus letras: `list("sol")` → `["s", "o", "l"]`
+- `bool(valor)` convierte a verdadero/falso. Son **falsos**: `0`, `""` (texto vacío), `[]` (lista vacía) y `None`. Casi todo lo demás es `True`.
+
+**Tu turno:**
+- `letras`: la lista con las letras de `"hola"`.
+- `hay_texto`: `bool("hola")`
+- `vacio`: `bool("")`
+=== inicial
+# Crea letras, hay_texto y vacio
+
+=== solucion
+letras = list("hola")
+hay_texto = bool("hola")
+vacio = bool("")
+=== prueba
+expr: letras
+igual: ["h", "o", "l", "a"]
+=== prueba
+expr: hay_texto
+igual: True
+=== prueba
+expr: vacio
+igual: False
+
+=== ejercicio
+id: ct-sumar-textos
+titulo: Sumar números que son texto
+=== enunciado
+Los datos que vienen de un formulario o de un archivo suelen ser texto, aunque parezcan números. Si los sumas sin convertir, Python **une los textos**:
+
+```python
+"12" + "30"            # "1230"
+int("12") + int("30")  # 42
+```
+
+**Tu turno:** suma `a` y `b` **como números** y guarda el resultado en `total`.
+=== inicial
+a = "12"
+b = "30"
+# Guarda en total la suma como números
+
+=== solucion
+a = "12"
+b = "30"
+total = int(a) + int(b)
+=== pista
+Convierte cada variable con `int()` y luego súmalas: `total = int(a) + int(b)`.
+=== prueba
+expr: total
+igual: 42

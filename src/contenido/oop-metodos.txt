@@ -1,0 +1,275 @@
+=== tema
+id: oop-metodos
+nivel: avanzado
+titulo: OOP - Métodos
+resumen: Funciones que pertenecen a una clase: acciones del objeto, __str__ y métodos estáticos.
+
+=== ejercicio
+id: om-simple
+titulo: Tu primer método
+=== enunciado
+Un **método** es una función definida dentro de una clase. Su primer parámetro es siempre `self` (el objeto sobre el que se llama), y con él accedes a los atributos:
+
+```python
+class Perro:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def ladrar(self):
+        return "¡Guau!"
+
+rex = Perro("Rex")
+rex.ladrar()      # "¡Guau!"
+```
+
+**Tu turno:** añade a `Perro` un método `presentarse` que devuelva el texto `Soy ` seguido del nombre del perro. Por ejemplo, `Soy Rex`.
+=== inicial
+class Perro:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    # Añade aquí el método presentarse
+
+=== solucion
+class Perro:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def presentarse(self):
+        return "Soy " + self.nombre
+=== pista
+`def presentarse(self):` y dentro `return "Soy " + self.nombre` (o con una f-string).
+=== prueba
+expr: Perro("Rex").presentarse()
+igual: "Soy Rex"
+=== prueba
+expr: Perro("Luna").presentarse()
+igual: "Soy Luna"
+
+=== ejercicio
+id: om-parametros
+titulo: Métodos con parámetros
+=== enunciado
+Además de `self`, un método puede recibir más parámetros, igual que una función normal. Al llamarlo, `self` se pasa solo: no lo escribes.
+
+```python
+class Saludador:
+    def saludar(self, nombre):
+        return "Hola " + nombre
+
+Saludador().saludar("Ana")    # solo pasas nombre
+```
+
+**Tu turno:** añade a `Calculadora` los métodos `sumar(a, b)` y `restar(a, b)` (a menos b), que **devuelvan** el resultado.
+=== inicial
+class Calculadora:
+    # Añade los métodos sumar y restar
+    pass
+
+=== solucion
+class Calculadora:
+    def sumar(self, a, b):
+        return a + b
+
+    def restar(self, a, b):
+        return a - b
+=== prueba
+expr: Calculadora().sumar(2, 3)
+igual: 5
+=== prueba
+expr: Calculadora().restar(10, 4)
+igual: 6
+=== prueba
+expr: Calculadora().sumar(-1, 1)
+igual: 0
+
+=== ejercicio
+id: om-estado
+titulo: Métodos que cambian el objeto
+=== enunciado
+Los métodos pueden **modificar** los atributos del objeto usando `self`. Así el objeto «recuerda» lo que le ha pasado:
+
+```python
+class Lampara:
+    def __init__(self):
+        self.encendida = False
+
+    def encender(self):
+        self.encendida = True
+```
+
+**Tu turno:** añade a `Contador` el método `incrementar` (suma 1 a `valor`) y el método `reiniciar` (pone `valor` otra vez a 0).
+=== inicial
+class Contador:
+    def __init__(self):
+        self.valor = 0
+
+    # Añade incrementar y reiniciar
+
+=== solucion
+class Contador:
+    def __init__(self):
+        self.valor = 0
+
+    def incrementar(self):
+        self.valor += 1
+
+    def reiniciar(self):
+        self.valor = 0
+=== prueba
+antes: c = Contador(); c.incrementar(); c.incrementar(); c.incrementar()
+expr: c.valor
+igual: 3
+desc: Tras incrementar 3 veces, valor es 3
+=== prueba
+antes: c = Contador(); c.incrementar(); c.reiniciar()
+expr: c.valor
+igual: 0
+desc: Tras reiniciar, valor vuelve a 0
+=== prueba
+expr: Contador().valor
+igual: 0
+
+=== ejercicio
+id: om-str
+titulo: __str__: cómo se muestra un objeto
+=== enunciado
+Si imprimes un objeto, Python muestra algo poco útil como `<Punto object at 0x...>`. Si defines el método especial `__str__` (que devuelve un texto), `print` y `str()` usarán ese texto:
+
+```python
+class Gato:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def __str__(self):
+        return "Gato " + self.nombre
+
+print(Gato("Misi"))    # Gato Misi
+```
+
+**Tu turno:** añade `__str__` a `Punto` para que devuelva el texto con el formato `(x, y)`; por ejemplo `(1, 2)`.
+=== inicial
+class Punto:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    # Añade __str__
+
+=== solucion
+class Punto:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __str__(self):
+        return f"({self.x}, {self.y})"
+=== pista
+`return f"({self.x}, {self.y})"`
+=== prueba
+expr: str(Punto(1, 2))
+igual: "(1, 2)"
+=== prueba
+expr: str(Punto(-3, 0))
+igual: "(-3, 0)"
+
+=== ejercicio
+id: om-cuenta
+titulo: Una cuenta bancaria
+=== enunciado
+Vamos a juntar todo. Una cuenta guarda un **saldo** y ofrece dos acciones:
+
+- `ingresar(cantidad)`: suma la cantidad al saldo.
+- `retirar(cantidad)`: si hay saldo suficiente, resta la cantidad y devuelve `True`; si no, **no cambia nada** y devuelve `False`.
+
+**Tu turno:** completa los métodos `ingresar` y `retirar`.
+=== inicial
+class Cuenta:
+    def __init__(self, saldo):
+        self.saldo = saldo
+
+    def ingresar(self, cantidad):
+        pass
+
+    def retirar(self, cantidad):
+        pass
+
+=== solucion
+class Cuenta:
+    def __init__(self, saldo):
+        self.saldo = saldo
+
+    def ingresar(self, cantidad):
+        self.saldo += cantidad
+
+    def retirar(self, cantidad):
+        if cantidad <= self.saldo:
+            self.saldo -= cantidad
+            return True
+        return False
+=== pista
+En `retirar`: `if cantidad <= self.saldo:` resta y `return True`; en otro caso `return False`.
+=== prueba
+antes: c = Cuenta(100); c.ingresar(50)
+expr: c.saldo
+igual: 150
+desc: Ingresar 50 en una cuenta de 100 deja 150
+=== prueba
+antes: c = Cuenta(100); r = c.retirar(30)
+expr: r
+igual: True
+desc: Retirar 30 de 100 devuelve True
+=== prueba
+antes: c = Cuenta(100); r = c.retirar(30)
+expr: c.saldo
+igual: 70
+desc: Y el saldo queda en 70
+=== prueba
+antes: c = Cuenta(100); r = c.retirar(500)
+expr: r
+igual: False
+desc: Retirar 500 de 100 devuelve False
+=== prueba
+antes: c = Cuenta(100); r = c.retirar(500)
+expr: c.saldo
+igual: 100
+desc: Y el saldo no cambia
+
+=== ejercicio
+id: om-estatico
+titulo: Métodos estáticos
+=== enunciado
+Un **método estático** no necesita ningún objeto: no recibe `self` y se llama directamente sobre la clase. Se marca con el decorador `@staticmethod` justo encima:
+
+```python
+class Mates:
+    @staticmethod
+    def doble(n):
+        return n * 2
+
+Mates.doble(4)     # 8
+```
+
+**Tu turno:** añade a `Persona` el método estático `es_mayor_de_edad(edad)`, que devuelva `True` si la edad es 18 o más.
+=== inicial
+class Persona:
+    # Añade el método estático es_mayor_de_edad
+    pass
+
+=== solucion
+class Persona:
+    @staticmethod
+    def es_mayor_de_edad(edad):
+        return edad >= 18
+=== prueba
+expr: Persona.es_mayor_de_edad(20)
+igual: True
+=== prueba
+expr: Persona.es_mayor_de_edad(18)
+igual: True
+=== prueba
+expr: Persona.es_mayor_de_edad(17)
+igual: False
+=== exige
+patron: @\s*staticmethod
+mensaje: Marca el método con @staticmethod

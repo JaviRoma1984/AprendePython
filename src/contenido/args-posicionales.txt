@@ -1,0 +1,182 @@
+=== tema
+id: args-posicionales
+nivel: avanzado
+titulo: Argumentos posicionales
+resumen: El orden de los argumentos importa: posiciones, valores por defecto y parámetros solo posicionales.
+
+=== ejercicio
+id: ap-orden
+titulo: El orden importa
+=== enunciado
+Un argumento **posicional** es el que Python asigna al parámetro según su **posición**: el primer valor va al primer parámetro, el segundo al segundo...
+
+```python
+def restar(a, b):
+    return a - b
+
+restar(10, 4)   # 6
+restar(4, 10)   # -6  (no es lo mismo)
+```
+
+**Tu turno:** la función `dividir` ya existe. Guarda en `resultado` la división de 20 entre 4 y en `al_reves` la de 4 entre 20.
+=== inicial
+def dividir(dividendo, divisor):
+    return dividendo / divisor
+
+# resultado: 20 dividido entre 4
+# al_reves: 4 dividido entre 20
+
+=== solucion
+def dividir(dividendo, divisor):
+    return dividendo / divisor
+
+resultado = dividir(20, 4)
+al_reves = dividir(4, 20)
+=== prueba
+expr: resultado
+igual: 5.0
+=== prueba
+expr: al_reves
+igual: 0.2
+
+=== ejercicio
+id: ap-volumen
+titulo: Tres parámetros posicionales
+=== enunciado
+Una función puede tener tantos parámetros como necesites. Al llamarla, hay que pasar los valores **en el mismo orden** en que están declarados los parámetros.
+
+**Tu turno:** escribe `volumen(largo, ancho, alto)` que devuelva el volumen de una caja (largo × ancho × alto).
+=== inicial
+def volumen(largo, ancho, alto):
+    pass
+
+=== solucion
+def volumen(largo, ancho, alto):
+    return largo * ancho * alto
+=== prueba
+expr: volumen(2, 3, 4)
+igual: 24
+=== prueba
+expr: volumen(1, 1, 1)
+igual: 1
+=== prueba
+expr: volumen(5, 0, 2)
+igual: 0
+=== prueba
+expr: volumen(1.5, 2, 2)
+igual: 6.0
+
+=== ejercicio
+id: ap-iva
+titulo: Posicionales con valor por defecto
+=== enunciado
+Los parámetros con valor por defecto deben ir **después** de los obligatorios. Al llamar a la función, el segundo valor posicional sustituye al valor por defecto:
+
+```python
+def mas_iva(precio, iva=21):
+    ...
+
+mas_iva(100)       # usa iva=21
+mas_iva(100, 10)   # usa iva=10
+```
+
+**Tu turno:** escribe `precio_final(precio, iva=21)` que devuelva el precio más el porcentaje de IVA. Por ejemplo, `precio_final(100)` da `121.0` y `precio_final(100, 10)` da `110.0`.
+=== inicial
+def precio_final(precio, iva=21):
+    pass
+
+=== solucion
+def precio_final(precio, iva=21):
+    return precio + precio * iva / 100
+=== pista
+El IVA es `precio * iva / 100`; súmalo al precio.
+=== prueba
+expr: precio_final(100)
+igual: 121.0
+laxo: si
+=== prueba
+expr: precio_final(100, 10)
+igual: 110.0
+laxo: si
+=== prueba
+expr: precio_final(200, 0)
+igual: 200.0
+laxo: si
+=== prueba
+expr: precio_final(50)
+igual: 60.5
+laxo: si
+
+=== ejercicio
+id: ap-solo-posicional
+titulo: Solo posicionales con /
+=== enunciado
+Una barra `/` en la lista de parámetros indica que los parámetros anteriores **solo pueden pasarse por posición**, nunca con su nombre:
+
+```python
+def doble(x, /):
+    return x * 2
+
+doble(4)       # 8
+doble(x=4)     # TypeError
+```
+
+**Tu turno:** convierte `triple` para que `n` sea solo posicional (añade `, /`) y haz que devuelva `n` multiplicado por 3.
+=== inicial
+def triple(n):
+    # Haz que n solo se pueda pasar por posición y devuelve n * 3
+    pass
+
+=== solucion
+def triple(n, /):
+    return n * 3
+=== pista
+La definición debe quedar `def triple(n, /):` y dentro `return n * 3`.
+=== prueba
+expr: triple(3)
+igual: 9
+=== prueba
+expr: triple(0)
+igual: 0
+=== prueba
+expr: triple(n=3)
+lanza: TypeError
+desc: triple(n=3) debe dar un TypeError, porque n solo se puede pasar por posición
+=== exige
+patron: ,\s*/\s*\)
+mensaje: Añade la barra / después del parámetro
+
+=== ejercicio
+id: ap-intercambiar
+titulo: Devolver varios valores
+=== enunciado
+Una función puede devolver varios valores separados por comas: en realidad devuelve **una tupla**.
+
+```python
+def minimo_y_maximo(a, b):
+    if a < b:
+        return a, b
+    return b, a
+
+menor, mayor = minimo_y_maximo(9, 3)   # menor = 3, mayor = 9
+```
+
+**Tu turno:** escribe `intercambiar(a, b)` que devuelva los dos valores en orden inverso: `intercambiar(1, 2)` → `(2, 1)`.
+=== inicial
+def intercambiar(a, b):
+    pass
+
+=== solucion
+def intercambiar(a, b):
+    return b, a
+=== pista
+`return b, a`
+=== prueba
+expr: intercambiar(1, 2)
+igual: (2, 1)
+=== prueba
+expr: intercambiar("a", "b")
+igual: ("b", "a")
+=== prueba
+expr: intercambiar(None, True)
+igual: (True, None)

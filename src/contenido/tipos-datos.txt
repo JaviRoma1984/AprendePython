@@ -1,0 +1,153 @@
+=== tema
+id: tipos-datos
+nivel: basico
+titulo: Tipos de datos
+resumen: Números, textos, verdadero/falso y vacío: qué guarda cada variable.
+
+=== ejercicio
+id: td-variables
+titulo: Tu primera variable
+=== enunciado
+Una **variable** es un nombre que guarda un valor. Se crea con el signo `=`:
+
+```python
+ciudad = "Sevilla"
+visitas = 120
+```
+
+Python decide el **tipo** de la variable según el valor: `"Sevilla"` es un texto (`str`) y `120` es un número entero (`int`). Los textos siempre van entre comillas; los números, no.
+
+**Tu turno:** crea una variable `nombre` con el texto `"Ana"` y otra variable `edad` con el número `30`.
+=== inicial
+# Escribe tus variables debajo de esta línea
+
+=== solucion
+nombre = "Ana"
+edad = 30
+=== pista
+El texto va entre comillas y el número no: `nombre = "Ana"` y `edad = 30`.
+=== prueba
+expr: nombre
+igual: "Ana"
+=== prueba
+expr: edad
+igual: 30
+
+=== ejercicio
+id: td-decimales
+titulo: Decimales y verdadero/falso
+=== enunciado
+Además de enteros, Python tiene:
+
+- `float`: números con decimales. Se escriben con **punto**, no con coma: `3.14`
+- `bool`: solo dos valores posibles, `True` (verdadero) y `False` (falso). Se escriben con la primera letra en mayúscula y **sin comillas**.
+
+```python
+temperatura = 21.5
+llueve = False
+```
+
+**Tu turno:** crea la variable `altura` con el valor `1.75` y la variable `activo` con el valor `True`.
+=== inicial
+# Crea las variables altura y activo
+
+=== solucion
+altura = 1.75
+activo = True
+=== pista
+`True` va sin comillas y con la T mayúscula. Si lo escribes entre comillas sería un texto, no un booleano.
+=== prueba
+expr: altura
+igual: 1.75
+=== prueba
+expr: activo
+igual: True
+
+=== ejercicio
+id: td-type
+titulo: Averigua el tipo con type()
+=== enunciado
+La función `type()` te dice de qué tipo es un valor, y `print()` lo muestra en pantalla:
+
+```python
+print(type(10))      # <class 'int'>
+print(type("hola"))  # <class 'str'>
+```
+
+**Tu turno:** la variable `x` ya existe. Imprime su tipo con `print()` y `type()`.
+=== inicial
+x = 3.14
+# Imprime el tipo de x
+
+=== solucion
+x = 3.14
+print(type(x))
+=== salida
+<class 'float'>
+=== exige
+patron: \btype\s*\(
+mensaje: Usa la función type()
+
+=== ejercicio
+id: td-comillas
+titulo: Comillas y valor vacío
+=== enunciado
+Un texto puede ir con comillas dobles `"..."` o simples `'...'`. Si dentro del texto aparecen comillas dobles, lo más cómodo es envolverlo con comillas simples:
+
+```python
+frase = 'Ella dijo: "adiós"'
+```
+
+Además existe `None`, un valor especial que significa «nada / sin valor» (tipo `NoneType`). Se escribe con la N mayúscula y sin comillas.
+
+**Tu turno:**
+- Crea la variable `frase` con exactamente este texto: `Dijo: "hola"` (con las comillas dobles dentro).
+- Crea la variable `vacio` con el valor `None`.
+=== inicial
+# Crea frase y vacio
+
+=== solucion
+frase = 'Dijo: "hola"'
+vacio = None
+=== pista
+Envuelve el texto con comillas simples para poder usar comillas dobles dentro: `frase = 'Dijo: "hola"'`.
+=== prueba
+expr: frase
+igual: 'Dijo: "hola"'
+=== prueba
+cierto: vacio is None
+desc: vacio vale None
+
+=== ejercicio
+id: td-recorrer-tipos
+titulo: El tipo de cada elemento
+=== enunciado
+Una **lista** guarda varios valores, y pueden ser de tipos distintos. Con un bucle `for` puedes recorrerla elemento a elemento:
+
+```python
+for cosa in [1, "a"]:
+    print(cosa)
+```
+
+El nombre de un tipo se obtiene con `type(valor).__name__`, por ejemplo `type(5).__name__` da `int`.
+
+**Tu turno:** recorre `datos` con un bucle `for` e imprime, **uno por línea**, el nombre del tipo de cada elemento.
+=== inicial
+datos = [42, 3.5, "python", True, None]
+# Recorre la lista e imprime el nombre del tipo de cada elemento
+
+=== solucion
+datos = [42, 3.5, "python", True, None]
+for dato in datos:
+    print(type(dato).__name__)
+=== pista
+`for dato in datos:` y dentro del bucle (con 4 espacios de sangría) `print(type(dato).__name__)`.
+=== salida
+int
+float
+str
+bool
+NoneType
+=== exige
+patron: \bfor\b
+mensaje: Recorre la lista con un bucle for

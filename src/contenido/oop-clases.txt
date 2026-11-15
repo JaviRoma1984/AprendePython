@@ -1,0 +1,186 @@
+=== tema
+id: oop-clases
+nivel: avanzado
+titulo: OOP - Clases
+resumen: Crear clases, objetos (instancias), herencia y averiguar a qué clase pertenece un objeto.
+
+=== ejercicio
+id: oc-crear
+titulo: Tu primera clase
+=== enunciado
+Una **clase** es el molde con el que se crean objetos. Se define con `class` y el nombre en MAYÚSCULA inicial. Cada objeto creado con ese molde se llama **instancia**:
+
+```python
+class Perro:
+    pass          # "pass" significa: de momento, vacía
+
+rex = Perro()     # rex es una instancia de Perro
+```
+
+**Tu turno:** define una clase `Persona` (puedes dejarla vacía con `pass`) y crea un objeto de esa clase en la variable `p`.
+=== inicial
+# Define la clase Persona y crea el objeto p
+
+=== solucion
+class Persona:
+    pass
+
+p = Persona()
+=== pista
+`class Persona:` y debajo, con sangría, `pass`. Después `p = Persona()` (con paréntesis, sin sangría).
+=== prueba
+cierto: isinstance(p, Persona)
+desc: p es un objeto de la clase Persona
+
+=== ejercicio
+id: oc-atributo-clase
+titulo: Un atributo dentro de la clase
+=== enunciado
+Lo que escribes dentro de la clase, fuera de cualquier función, son **atributos de clase**: existen en la clase y en todos sus objetos. Se pueden leer desde la propia clase (`Circulo.pi`) sin crear ningún objeto.
+
+**Tu turno:** define la clase `Circulo` con un atributo `pi` que valga `3.14159`, y guarda en `valor` el contenido de `Circulo.pi`.
+=== inicial
+# Define Circulo con el atributo pi = 3.14159
+# Guarda en valor el atributo pi de la clase
+
+=== solucion
+class Circulo:
+    pi = 3.14159
+
+valor = Circulo.pi
+=== prueba
+expr: Circulo.pi
+igual: 3.14159
+=== prueba
+expr: valor
+igual: 3.14159
+=== prueba
+expr: Circulo().pi
+igual: 3.14159
+desc: Un objeto Circulo() también ve el atributo pi
+
+=== ejercicio
+id: oc-instancias
+titulo: Objetos independientes
+=== enunciado
+Cada vez que escribes `Clase()` se crea un objeto **nuevo e independiente**. Lo que cambies en uno no afecta a los demás:
+
+```python
+a = Caja()
+b = Caja()
+a.tamano = "grande"
+b.tamano = "pequeña"
+```
+
+**Tu turno:** a `c1` dale el atributo `valor` con el número `1` y a `c2` el atributo `valor` con el número `2`.
+=== inicial
+class Contador:
+    pass
+
+c1 = Contador()
+c2 = Contador()
+# c1.valor = 1   y   c2.valor = 2
+
+=== solucion
+class Contador:
+    pass
+
+c1 = Contador()
+c2 = Contador()
+c1.valor = 1
+c2.valor = 2
+=== prueba
+expr: c1.valor
+igual: 1
+=== prueba
+expr: c2.valor
+igual: 2
+
+=== ejercicio
+id: oc-herencia
+titulo: Herencia
+=== enunciado
+Una clase puede **heredar** de otra: recibe todo lo suyo y puede cambiarlo (**sobrescribir**) o ampliarlo. La clase de la que se hereda se escribe entre paréntesis:
+
+```python
+class Vehiculo:
+    def ruido(self):
+        return "..."
+
+class Moto(Vehiculo):
+    def ruido(self):
+        return "Brum"
+```
+
+**Tu turno:** la clase `Animal` ya existe. Define `Perro`, que herede de `Animal` y cuyo método `sonido` devuelva `"Guau"`.
+=== inicial
+class Animal:
+    def sonido(self):
+        return "..."
+
+# Define la clase Perro, que herede de Animal y sobrescriba sonido
+
+=== solucion
+class Animal:
+    def sonido(self):
+        return "..."
+
+class Perro(Animal):
+    def sonido(self):
+        return "Guau"
+=== pista
+`class Perro(Animal):` y dentro `def sonido(self):` con `return "Guau"`.
+=== prueba
+expr: Perro().sonido()
+igual: "Guau"
+=== prueba
+expr: isinstance(Perro(), Animal)
+igual: True
+desc: Un Perro es también un Animal
+=== prueba
+expr: Animal().sonido()
+igual: "..."
+desc: Animal conserva su sonido original
+=== exige
+patron: class\s+Perro\s*\(\s*Animal\s*\)
+mensaje: Perro debe heredar de Animal
+
+=== ejercicio
+id: oc-nombre-clase
+titulo: ¿De qué clase es?
+=== enunciado
+Para saber de qué clase es un objeto: `type(objeto)` da la clase, y `type(objeto).__name__` da su nombre como texto.
+
+```python
+type(5).__name__        # "int"
+type(Perro()).__name__  # "Perro"
+```
+
+**Tu turno:** recorre la lista `animales` con un `for` e imprime, uno por línea, el nombre de la clase de cada objeto.
+=== inicial
+class Gato:
+    pass
+
+class Perro:
+    pass
+
+animales = [Gato(), Perro(), Gato()]
+# Imprime el nombre de la clase de cada animal
+
+=== solucion
+class Gato:
+    pass
+
+class Perro:
+    pass
+
+animales = [Gato(), Perro(), Gato()]
+for animal in animales:
+    print(type(animal).__name__)
+=== salida
+Gato
+Perro
+Gato
+=== exige
+patron: \bfor\b
+mensaje: Recorre la lista con un bucle for

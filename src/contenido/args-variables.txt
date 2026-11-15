@@ -1,0 +1,178 @@
+=== tema
+id: args-variables
+nivel: avanzado
+titulo: Argumentos variables
+resumen: Funciones que aceptan cualquier cantidad de datos con *args.
+
+=== ejercicio
+id: av-sumar
+titulo: Cualquier cantidad de números
+=== enunciado
+A veces no sabes cuántos datos va a recibir una función. Poniendo un asterisco delante del parámetro (`*numeros`), Python recoge **todos los valores sueltos** que le pases y los guarda en una **tupla**:
+
+```python
+def contar_nombres(*nombres):
+    return len(nombres)
+
+contar_nombres("Ana", "Luis")   # 2
+contar_nombres()                # 0
+```
+
+(Por costumbre este parámetro se suele llamar `*args`, pero el nombre es libre.)
+
+**Tu turno:** escribe `sumar(*numeros)`, que devuelva la suma de todos los números recibidos (y `0` si no recibe ninguno).
+=== inicial
+def sumar(*numeros):
+    pass
+
+=== solucion
+def sumar(*numeros):
+    return sum(numeros)
+=== pista
+`sum()` suma todos los elementos de una tupla o lista: `return sum(numeros)`.
+=== prueba
+expr: sumar(1, 2, 3)
+igual: 6
+=== prueba
+expr: sumar()
+igual: 0
+=== prueba
+expr: sumar(5)
+igual: 5
+=== prueba
+expr: sumar(1.5, 2.5)
+igual: 4.0
+
+=== ejercicio
+id: av-tipo
+titulo: *args es una tupla
+=== enunciado
+Dentro de la función, el parámetro `*valores` es una **tupla** con todo lo recibido. Puedes usar `len()` para saber cuántos elementos tiene y `type(...).__name__` para saber su tipo.
+
+**Tu turno:** escribe `tipo_y_cantidad(*valores)` que devuelva un texto con el nombre del tipo de `valores` y la cantidad de elementos, con este formato: `tuple de 3`.
+=== inicial
+def tipo_y_cantidad(*valores):
+    pass
+
+=== solucion
+def tipo_y_cantidad(*valores):
+    return f"{type(valores).__name__} de {len(valores)}"
+=== pista
+`return f"{type(valores).__name__} de {len(valores)}"`
+=== prueba
+expr: tipo_y_cantidad(1, 2, 3)
+igual: "tuple de 3"
+=== prueba
+expr: tipo_y_cantidad()
+igual: "tuple de 0"
+=== prueba
+expr: tipo_y_cantidad("a", "b")
+igual: "tuple de 2"
+
+=== ejercicio
+id: av-promedio
+titulo: Promedio de notas
+=== enunciado
+Con `*notas` puedes recorrer los valores recibidos como cualquier tupla (con `for`, `sum()`, `len()`...).
+
+**Tu turno:** escribe `promedio(*notas)` que devuelva la media de las notas recibidas. Si no recibe ninguna, debe devolver `0` (así evitas dividir entre cero).
+=== inicial
+def promedio(*notas):
+    pass
+
+=== solucion
+def promedio(*notas):
+    if len(notas) == 0:
+        return 0
+    return sum(notas) / len(notas)
+=== pista
+Primero comprueba si `len(notas) == 0` y devuelve 0. Si no, `sum(notas) / len(notas)`.
+=== prueba
+expr: promedio(5, 7)
+igual: 6.0
+laxo: si
+=== prueba
+expr: promedio(10)
+igual: 10.0
+laxo: si
+=== prueba
+expr: promedio(2, 4, 6)
+igual: 4.0
+laxo: si
+=== prueba
+expr: promedio()
+igual: 0
+laxo: si
+
+=== ejercicio
+id: av-desempaquetar
+titulo: Desempaquetar con * al llamar
+=== enunciado
+El asterisco también funciona **al llamar** a una función: `*lista` reparte los elementos de la lista como si los hubieras escrito uno por uno.
+
+```python
+def sumar3(a, b, c):
+    return a + b + c
+
+numeros = [1, 2, 3]
+sumar3(*numeros)     # igual que sumar3(1, 2, 3)  →  6
+```
+
+**Tu turno:** llama a `multiplicar` pasándole los valores de la lista `datos` con `*` y guarda el resultado en `resultado`.
+=== inicial
+def multiplicar(a, b, c):
+    return a * b * c
+
+datos = [2, 3, 4]
+# Guarda en resultado la llamada a multiplicar usando *datos
+
+=== solucion
+def multiplicar(a, b, c):
+    return a * b * c
+
+datos = [2, 3, 4]
+resultado = multiplicar(*datos)
+=== prueba
+expr: resultado
+igual: 24
+=== exige
+patron: multiplicar\s*\(\s*\*\s*datos
+mensaje: Llama a multiplicar(*datos)
+
+=== ejercicio
+id: av-unir
+titulo: Un parámetro normal y *args
+=== enunciado
+Puedes mezclar parámetros normales con `*args`. Los normales van **antes** y toman los primeros valores; el resto va a la tupla.
+
+```python
+def saludar_a(saludo, *nombres):
+    ...
+
+saludar_a("Hola", "Ana", "Luis")   # saludo = "Hola"; nombres = ("Ana", "Luis")
+```
+
+Recuerda que `"-".join(["a", "b"])` une textos con un separador: `"a-b"`.
+
+**Tu turno:** escribe `unir(separador, *palabras)` que devuelva todas las palabras unidas por el separador.
+=== inicial
+def unir(separador, *palabras):
+    pass
+
+=== solucion
+def unir(separador, *palabras):
+    return separador.join(palabras)
+=== pista
+`return separador.join(palabras)`
+=== prueba
+expr: unir("-", "a", "b", "c")
+igual: "a-b-c"
+=== prueba
+expr: unir(" ", "hola", "mundo")
+igual: "hola mundo"
+=== prueba
+expr: unir(",")
+igual: ""
+=== prueba
+expr: unir("+", "solo")
+igual: "solo"

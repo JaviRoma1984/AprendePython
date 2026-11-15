@@ -1,0 +1,195 @@
+=== tema
+id: funciones
+nivel: basico
+titulo: Funciones
+resumen: Define bloques de código con nombre, pásales datos y recoge resultados.
+
+=== ejercicio
+id: fn-saludar
+titulo: Tu primera función
+=== enunciado
+Una **función** es un bloque de código con nombre que puedes reutilizar. Se define con `def`, el nombre, paréntesis y dos puntos. El cuerpo va **sangrado** (4 espacios):
+
+```python
+def despedirse():
+    print("Adiós")
+
+despedirse()   # así se llama
+```
+
+Si no la llamas, no hace nada.
+
+**Tu turno:** define una función `saludar` que imprima `¡Hola, mundo!` y llámala una vez.
+=== inicial
+# Define la función saludar() y después llámala
+
+=== solucion
+def saludar():
+    print("¡Hola, mundo!")
+
+saludar()
+=== pista
+Primero `def saludar():`, y en la línea siguiente, con sangría, el `print(...)`. Después, sin sangría, `saludar()`.
+=== salida
+¡Hola, mundo!
+=== prueba
+cierto: callable(saludar)
+desc: Existe la función saludar
+=== exige
+patron: \bdef\s+saludar\b
+mensaje: Define la función con def saludar()
+
+=== ejercicio
+id: fn-cuadrado
+titulo: Parámetros y return
+=== enunciado
+Los **parámetros** son los datos que recibe la función. Con `return` la función **devuelve** un resultado a quien la llamó:
+
+```python
+def doble(x):
+    return x * 2
+
+resultado = doble(5)   # resultado vale 10
+```
+
+**Tu turno:** completa la función `cuadrado(n)` para que devuelva `n` multiplicado por sí mismo.
+=== inicial
+def cuadrado(n):
+    # devuelve el cuadrado de n
+    pass
+
+=== solucion
+def cuadrado(n):
+    return n * n
+=== pista
+Sustituye `pass` por `return n * n`.
+=== prueba
+expr: cuadrado(3)
+igual: 9
+=== prueba
+expr: cuadrado(0)
+igual: 0
+=== prueba
+expr: cuadrado(-4)
+igual: 16
+=== prueba
+expr: cuadrado(2.5)
+igual: 6.25
+
+=== ejercicio
+id: fn-es-par
+titulo: Una función que responde sí o no
+=== enunciado
+`print` solo muestra algo en pantalla; `return` entrega un valor que se puede guardar o usar en otra operación. Una función que responde «sí o no» debe devolver `True` o `False`.
+
+El operador `%` da el **resto** de una división: `7 % 2` vale `1` y `8 % 2` vale `0`.
+
+**Tu turno:** escribe `es_par(n)`, que devuelva `True` si `n` es par y `False` si no lo es.
+=== inicial
+def es_par(n):
+    pass
+
+=== solucion
+def es_par(n):
+    return n % 2 == 0
+=== pista
+Un número es par cuando el resto de dividirlo entre 2 es 0: `return n % 2 == 0`.
+=== prueba
+expr: es_par(4)
+igual: True
+=== prueba
+expr: es_par(7)
+igual: False
+=== prueba
+expr: es_par(0)
+igual: True
+=== prueba
+expr: es_par(-3)
+igual: False
+
+=== ejercicio
+id: fn-potencia
+titulo: Valor por defecto
+=== enunciado
+Un parámetro puede tener un **valor por defecto**: si al llamar a la función no le das ese dato, usa el valor indicado.
+
+```python
+def saludo(nombre, mensaje="Hola"):
+    return mensaje + ", " + nombre
+
+saludo("Ana")            # "Hola, Ana"
+saludo("Ana", "Buenas")  # "Buenas, Ana"
+```
+
+**Tu turno:** escribe `potencia(base, exponente=2)` que devuelva `base` elevado a `exponente`. El operador de potencia en Python es `**`. Si no se indica el exponente, debe elevar al cuadrado.
+=== inicial
+def potencia(base, exponente=2):
+    pass
+
+=== solucion
+def potencia(base, exponente=2):
+    return base ** exponente
+=== pista
+`return base ** exponente`. El valor por defecto ya está puesto en la primera línea.
+=== prueba
+expr: potencia(3)
+igual: 9
+=== prueba
+expr: potencia(2, 3)
+igual: 8
+=== prueba
+expr: potencia(5, 0)
+igual: 1
+=== prueba
+expr: potencia(10, 2)
+igual: 100
+
+=== ejercicio
+id: fn-maximo
+titulo: Decidir con if
+=== enunciado
+Dentro de una función puedes tomar decisiones con `if`, `elif` y `else`:
+
+```python
+def signo(n):
+    if n > 0:
+        return "positivo"
+    elif n < 0:
+        return "negativo"
+    else:
+        return "cero"
+```
+
+**Tu turno:** escribe `maximo(a, b, c)` que devuelva el mayor de los tres números. Hazlo con `if` (no vale usar la función `max()`).
+=== inicial
+def maximo(a, b, c):
+    pass
+
+=== solucion
+def maximo(a, b, c):
+    mayor = a
+    if b > mayor:
+        mayor = b
+    if c > mayor:
+        mayor = c
+    return mayor
+=== pista
+Guarda `a` en una variable `mayor`; si `b` es más grande, cámbiala; haz lo mismo con `c`; al final `return mayor`.
+=== prueba
+expr: maximo(1, 2, 3)
+igual: 3
+=== prueba
+expr: maximo(3, 2, 1)
+igual: 3
+=== prueba
+expr: maximo(2, 9, 4)
+igual: 9
+=== prueba
+expr: maximo(-1, -5, -3)
+igual: -1
+=== prueba
+expr: maximo(5, 5, 5)
+igual: 5
+=== prohibe
+patron: \bmax\s*\(
+mensaje: Sin usar max(): resuélvelo con if

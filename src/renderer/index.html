@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AprendePython</title>
+  <link rel="stylesheet" href="vendor/codemirror/codemirror.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header id="cabecera">
+    <div class="marca"><img src="icono.png" alt="" width="26" height="26"><span>AprendePython</span></div>
+    <button id="python-estado" class="chip" type="button" title="Versión de Python que se usa para ejecutar tu código">Buscando Python…</button>
+    <div class="espacio"></div>
+    <div class="progreso" title="Tu avance: ejercicios resueltos y verificados">
+      <div class="barra"><i id="barra-prog"></i></div>
+      <strong id="pct-prog" class="pct">0 %</strong>
+      <span id="texto-prog">0 de 0 resueltos</span>
+    </div>
+    <div class="acciones-cab">
+      <span id="estado-guardado" class="estado-guardado ok">✔ Todo guardado</span>
+      <button id="btn-guardar" type="button" class="btn-cab">💾 Guardar<span class="txt-largo"> cambios</span></button>
+      <button id="btn-cero" type="button" class="btn-cab peligro" title="Borra todo tu avance y vuelve al primer ejercicio">🔄 <span class="txt-largo">Empezar de cero</span><span class="txt-corto">De cero</span></button>
+    </div>
+    <div class="tam" title="Tamaño de la letra del código">
+      <button id="btn-letra-menos" type="button" aria-label="Letra más pequeña">A−</button>
+      <button id="btn-letra-mas" type="button" aria-label="Letra más grande">A+</button>
+    </div>
+  </header>
+
+  <div id="area">
+    <main id="principal">
+      <section id="enunciado" aria-label="Enunciado del ejercicio">
+        <div class="enun-barra">
+          <div id="ruta" class="ruta"></div>
+          <div class="nav">
+            <button id="btn-pista" type="button" class="btn-pista">💡 Ver pista</button>
+            <button id="btn-anterior" type="button" title="Ejercicio anterior">◀</button>
+            <span id="pos-ejercicio"></span>
+            <button id="btn-siguiente" type="button" title="Ejercicio siguiente">▶</button>
+          </div>
+        </div>
+        <h1 id="titulo-ejercicio"></h1>
+        <div id="pista" class="pista" hidden></div>
+        <div id="texto-enunciado" class="texto"></div>
+      </section>
+
+      <div id="sep-e" class="separador h" role="separator" aria-orientation="horizontal" title="Arrastra para cambiar la altura del enunciado (doble clic: automática)"></div>
+
+      <section id="paneles" aria-label="Editor y solución">
+        <div id="panel-codigo" class="panel">
+          <div class="panel-cab">
+            <span class="panel-titulo">✏️ Tu código</span>
+            <div class="botones">
+              <button id="btn-ejecutar" type="button" title="Ejecuta tu código y muestra lo que imprime (Ctrl+Intro)">▶ Ejecutar</button>
+              <button id="btn-verificar" type="button" class="primario" title="Comprueba si tu código es la solución correcta (Ctrl+Mayús+Intro)">✔ Verificar<span class="txt-largo"> código</span></button>
+              <button id="btn-reiniciar" type="button" title="Vuelve al código con el que empezó el ejercicio">↺<span class="txt-largo"> Empezar de nuevo</span></button>
+            </div>
+          </div>
+          <div id="editor-cont" class="editor-cont"></div>
+        </div>
+
+        <div id="sep-v" class="separador v" role="separator" aria-orientation="vertical" title="Arrastra para cambiar el ancho"></div>
+
+        <div id="panel-solucion" class="panel">
+          <div class="panel-cab">
+            <span class="panel-titulo">🔑 Solución</span>
+            <div class="botones">
+              <button id="btn-solucion" type="button" aria-expanded="false">👁 Ver solución</button>
+            </div>
+          </div>
+          <div class="editor-cont">
+            <div id="sol-oculta" class="sol-oculta">
+              <div class="candado">🔒</div>
+              <p>La solución está <strong>oculta</strong>.</p>
+              <p>Inténtalo primero: se aprende mucho más equivocándose y corrigiendo. Cuando quieras, pulsa <em>«Ver solución»</em>.</p>
+            </div>
+            <div id="sol-cont" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <div id="sep-h" class="separador h" role="separator" aria-orientation="horizontal" title="Arrastra para cambiar la altura"></div>
+
+      <section id="resultado" aria-label="Resultado" aria-live="polite">
+        <div class="res-cab"><span class="panel-titulo">📟 Resultado</span><span id="res-estado" class="res-estado"></span></div>
+        <div id="res-cuerpo" class="res-cuerpo"></div>
+      </section>
+    </main>
+
+    <aside id="menu" aria-label="Temario">
+      <h2>Temario</h2>
+      <nav id="menu-arbol"></nav>
+    </aside>
+  </div>
+
+  <script src="vendor/codemirror/codemirror.js"></script>
+  <script src="vendor/codemirror/python.js"></script>
+  <script src="vendor/codemirror/closebrackets.js"></script>
+  <script src="vendor/codemirror/matchbrackets.js"></script>
+  <script src="vendor/codemirror/comment.js"></script>
+  <script src="vendor/codemirror/active-line.js"></script>
+  <script src="vendor/codemirror/runmode.js"></script>
+  <script src="../shared/texto.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

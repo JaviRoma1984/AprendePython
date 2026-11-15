@@ -1,0 +1,173 @@
+=== tema
+id: args-clave-valor
+nivel: avanzado
+titulo: Argumentos clave:valor
+resumen: Pasar datos por nombre (clave=valor) y recogerlos con **kwargs.
+
+=== ejercicio
+id: kv-llamar
+titulo: Llamar con nombre
+=== enunciado
+Al llamar a una función puedes decir **a qué parámetro** va cada dato, con `nombre=valor`. Así el orden deja de importar y el código se lee mejor:
+
+```python
+def presentar(nombre, edad):
+    return f"{nombre} tiene {edad} años"
+
+presentar("Ana", 30)
+presentar(edad=30, nombre="Ana")   # mismo resultado
+```
+
+**Tu turno:** la función `presentar` ya existe. Llámala con argumentos por nombre, escribiendo primero `edad` (30) y después `nombre` ("Ana"), y guarda el resultado en `texto`.
+=== inicial
+def presentar(nombre, edad):
+    return f"{nombre} tiene {edad} años"
+
+# Guarda en texto la llamada con edad=30 y nombre="Ana" (en ese orden)
+
+=== solucion
+def presentar(nombre, edad):
+    return f"{nombre} tiene {edad} años"
+
+texto = presentar(edad=30, nombre="Ana")
+=== prueba
+expr: texto
+igual: "Ana tiene 30 años"
+=== exige
+patron: \bedad\s*=\s*30
+mensaje: Pasa edad=30 con su nombre
+=== exige
+patron: \bnombre\s*=
+mensaje: Pasa nombre="Ana" con su nombre
+
+=== ejercicio
+id: kv-kwargs
+titulo: Recoger todo con **kwargs
+=== enunciado
+Si pones `**datos` como último parámetro, la función recoge **todos los argumentos con nombre** que no estén ya en otro parámetro, y los guarda en un **diccionario**:
+
+```python
+def mostrar(**datos):
+    return datos
+
+mostrar(color="rojo", talla=42)    # {"color": "rojo", "talla": 42}
+```
+
+(Por costumbre se llama `**kwargs`, de *keyword arguments*.)
+
+**Tu turno:** escribe `contar_datos(**kwargs)` que devuelva cuántos argumentos con nombre ha recibido.
+=== inicial
+def contar_datos(**kwargs):
+    pass
+
+=== solucion
+def contar_datos(**kwargs):
+    return len(kwargs)
+=== prueba
+expr: contar_datos(a=1, b=2)
+igual: 2
+=== prueba
+expr: contar_datos()
+igual: 0
+=== prueba
+expr: contar_datos(x=1, y=2, z=3)
+igual: 3
+
+=== ejercicio
+id: kv-describir
+titulo: Recorrer los kwargs
+=== enunciado
+Como `**datos` es un diccionario, puedes recorrerlo con `.items()`, que da cada pareja `(clave, valor)`:
+
+```python
+for clave, valor in {"a": 1}.items():
+    print(clave, valor)    # a 1
+```
+
+**Tu turno:** escribe `describir(**datos)` que devuelva una **lista de textos** con el formato `clave=valor`, en el mismo orden en que llegaron. Ejemplo: `describir(color="rojo", talla=42)` → `["color=rojo", "talla=42"]`.
+=== inicial
+def describir(**datos):
+    pass
+
+=== solucion
+def describir(**datos):
+    resultado = []
+    for clave, valor in datos.items():
+        resultado.append(f"{clave}={valor}")
+    return resultado
+=== pista
+Crea una lista vacía, recorre `datos.items()` con `for clave, valor in ...`, añade `f"{clave}={valor}"` y devuelve la lista.
+=== prueba
+expr: describir(color="rojo", talla=42)
+igual: ["color=rojo", "talla=42"]
+=== prueba
+expr: describir()
+igual: []
+=== prueba
+expr: describir(a=1)
+igual: ["a=1"]
+
+=== ejercicio
+id: kv-desempaquetar-dict
+titulo: Desempaquetar un diccionario con **
+=== enunciado
+Igual que `*lista` reparte una lista, `**diccionario` reparte un diccionario como argumentos con nombre: cada clave es el nombre del parámetro.
+
+```python
+def area(base, altura):
+    return base * altura / 2
+
+medidas = {"base": 6, "altura": 4}
+area(**medidas)     # igual que area(base=6, altura=4)  →  12.0
+```
+
+**Tu turno:** llama a `ficha` pasándole el diccionario `datos` con `**` y guarda el resultado en `texto`.
+=== inicial
+def ficha(nombre, edad):
+    return f"{nombre} ({edad})"
+
+datos = {"nombre": "Luis", "edad": 41}
+# Guarda en texto la llamada a ficha usando **datos
+
+=== solucion
+def ficha(nombre, edad):
+    return f"{nombre} ({edad})"
+
+datos = {"nombre": "Luis", "edad": 41}
+texto = ficha(**datos)
+=== prueba
+expr: texto
+igual: "Luis (41)"
+=== exige
+patron: ficha\s*\(\s*\*\*\s*datos
+mensaje: Llama a ficha(**datos)
+
+=== ejercicio
+id: kv-perfil
+titulo: Un dato obligatorio y los demás opcionales
+=== enunciado
+Puedes combinar un parámetro normal con `**extras`. El normal es obligatorio; los argumentos con nombre extra son opcionales y acaban en el diccionario `extras`.
+
+**Tu turno:** escribe `perfil(nombre, **extras)` que devuelva un diccionario con la clave `"nombre"` y además todas las claves extra recibidas.
+
+Ejemplo: `perfil("Ana", edad=30)` → `{"nombre": "Ana", "edad": 30}`
+=== inicial
+def perfil(nombre, **extras):
+    pass
+
+=== solucion
+def perfil(nombre, **extras):
+    resultado = {"nombre": nombre}
+    resultado.update(extras)
+    return resultado
+=== pista
+Empieza con `resultado = {"nombre": nombre}` y añade el resto con `resultado.update(extras)`.
+=== prueba
+expr: perfil("Ana", edad=30)
+igual: {"nombre": "Ana", "edad": 30}
+=== prueba
+expr: perfil("Luis")
+igual: {"nombre": "Luis"}
+=== prueba
+expr: perfil("Eva", ciudad="Cádiz", activa=True)
+igual: {"nombre": "Eva", "ciudad": "Cádiz", "activa": True}

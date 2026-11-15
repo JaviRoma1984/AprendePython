@@ -1,0 +1,224 @@
+=== tema
+id: print-booleanos
+nivel: basico
+titulo: print y booleanos
+resumen: Mostrar información con print() y trabajar con True/False, comparaciones y condiciones.
+
+=== ejercicio
+id: pb-print
+titulo: Mostrar con print
+=== enunciado
+`print()` escribe en pantalla lo que le pidas. Un texto va entre comillas. Si le das varios valores separados por comas, los muestra separados por un espacio:
+
+```python
+print("Hola")            # Hola
+print("Edad:", 30)       # Edad: 30
+```
+
+**Tu turno:** imprime estas dos líneas, una con cada `print()`:
+
+```
+Hola, Python
+Edad: 30
+```
+=== inicial
+# Escribe tus print debajo
+
+=== solucion
+print("Hola, Python")
+print("Edad:", 30)
+=== pista
+Dos `print()`. En el segundo, `"Edad:"` y `30` van separados por una coma.
+=== salida
+Hola, Python
+Edad: 30
+=== exige
+patron: \bprint\s*\(
+mensaje: Usa la función print()
+
+=== ejercicio
+id: pb-sep-end
+titulo: sep y end
+=== enunciado
+`print()` tiene dos opciones útiles:
+
+- `sep` cambia lo que se pone **entre** los valores (por defecto, un espacio).
+- `end` cambia lo que se pone **al final** (por defecto, un salto de línea).
+
+```python
+print("a", "b", sep="-")      # a-b
+print("Cargando", end="...")  # no salta de línea
+print("listo")                # Cargando...listo
+```
+
+**Tu turno:** imprime exactamente estas dos líneas usando `sep` y `end`:
+
+```
+15/11/2026
+Cargando...listo
+```
+=== inicial
+# Línea 1: los números 15, 11 y 2026 separados por "/" (usa sep)
+# Línea 2: "Cargando" y "listo" en la misma línea unidos por "..." (usa end)
+
+=== solucion
+print(15, 11, 2026, sep="/")
+print("Cargando", end="...")
+print("listo")
+=== pista
+`print(15, 11, 2026, sep="/")` para la fecha. Para la segunda línea necesitas dos `print`, el primero con `end="..."`.
+=== salida
+15/11/2026
+Cargando...listo
+=== exige
+patron: \bsep\s*=
+mensaje: Usa el parámetro sep
+=== exige
+patron: \bend\s*=
+mensaje: Usa el parámetro end
+
+=== ejercicio
+id: pb-fstrings
+titulo: Mezclar texto y variables con f-strings
+=== enunciado
+Una **f-string** es un texto que lleva una `f` delante de las comillas y permite meter variables entre llaves `{}`:
+
+```python
+ciudad = "Cádiz"
+print(f"Vivo en {ciudad}")   # Vivo en Cádiz
+```
+
+**Tu turno:** con las variables `nombre` y `edad`, imprime `Ana tiene 30 años` usando una f-string.
+=== inicial
+nombre = "Ana"
+edad = 30
+# Imprime: Ana tiene 30 años
+
+=== solucion
+nombre = "Ana"
+edad = 30
+print(f"{nombre} tiene {edad} años")
+=== pista
+`print(f"{nombre} tiene {edad} años")`. La `f` va pegada a la comilla de apertura.
+=== salida
+Ana tiene 30 años
+=== exige
+patron: \bf["']
+mensaje: Usa una f-string
+bruto: si
+
+=== ejercicio
+id: pb-comparaciones
+titulo: Comparaciones: True o False
+=== enunciado
+Comparar dos valores da un **booleano** (`True` o `False`):
+
+| operador | significa |
+| --- | --- |
+| `==` | es igual a |
+| `!=` | es distinto de |
+| `>` `<` | mayor / menor que |
+| `>=` `<=` | mayor o igual / menor o igual |
+
+Cuidado: un solo `=` **guarda** un valor; dos `==` **comparan**.
+
+**Tu turno:** con `a` y `b`, crea `mayor` (¿`a` es mayor que `b`?), `iguales` (¿son iguales?) y `distintos` (¿son distintos?).
+=== inicial
+a = 10
+b = 20
+# Crea mayor, iguales y distintos
+
+=== solucion
+a = 10
+b = 20
+mayor = a > b
+iguales = a == b
+distintos = a != b
+=== prueba
+expr: mayor
+igual: False
+=== prueba
+expr: iguales
+igual: False
+=== prueba
+expr: distintos
+igual: True
+
+=== ejercicio
+id: pb-and-or-not
+titulo: and, or y not
+=== enunciado
+Los booleanos se combinan con:
+
+- `and`: verdadero solo si **las dos** partes son verdaderas
+- `or`: verdadero si **al menos una** lo es
+- `not`: invierte el valor
+
+```python
+llueve = True
+hace_frio = False
+llueve and hace_frio    # False
+llueve or hace_frio     # True
+not llueve              # False
+```
+
+**Tu turno:**
+- `puede_conducir`: es `True` si `edad` es 18 o más **y** `tiene_carnet` es `True`.
+- `es_menor`: es `True` si `edad` **no** es 18 o más (usa `not`).
+=== inicial
+edad = 25
+tiene_carnet = True
+# Crea puede_conducir y es_menor
+
+=== solucion
+edad = 25
+tiene_carnet = True
+puede_conducir = edad >= 18 and tiene_carnet
+es_menor = not (edad >= 18)
+=== prueba
+expr: puede_conducir
+igual: True
+=== prueba
+expr: es_menor
+igual: False
+=== exige
+patron: \band\b
+mensaje: Usa and
+=== exige
+patron: \bnot\b
+mensaje: Usa not
+
+=== ejercicio
+id: pb-if-else
+titulo: Decidir con if y else
+=== enunciado
+Un booleano sirve para decidir qué código se ejecuta. Después de la condición van **dos puntos** y el bloque va sangrado:
+
+```python
+if temperatura > 30:
+    print("Calor")
+else:
+    print("Normal")
+```
+
+**Tu turno:** si `numero` es par, imprime `par`; si no, imprime `impar`. (Recuerda: un número es par si `numero % 2 == 0`.)
+=== inicial
+numero = 7
+# Imprime "par" o "impar"
+
+=== solucion
+numero = 7
+if numero % 2 == 0:
+    print("par")
+else:
+    print("impar")
+=== pista
+`if numero % 2 == 0:` → `print("par")`; `else:` → `print("impar")`. No olvides los dos puntos ni la sangría.
+=== salida
+impar
+=== exige
+patron: \bif\b
+mensaje: Usa if
+=== exige
+patron: \belse\b
+mensaje: Usa else

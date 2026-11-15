@@ -1,0 +1,175 @@
+=== tema
+id: oop-constructores
+nivel: avanzado
+titulo: OOP - Constructores
+resumen: El método __init__: dar valores iniciales a un objeto en el momento de crearlo.
+
+=== ejercicio
+id: oco-init
+titulo: Tu primer __init__
+=== enunciado
+El **constructor** es un método especial llamado `__init__` (con dos guiones bajos a cada lado). Python lo ejecuta **automáticamente** al crear un objeto, y sirve para darle sus datos iniciales.
+
+- El primer parámetro siempre es `self`: el objeto que se está creando.
+- Los datos se guardan como atributos: `self.nombre = nombre`.
+
+```python
+class Perro:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+rex = Perro("Rex")
+print(rex.nombre)    # Rex
+```
+
+**Tu turno:** completa el constructor de `Persona` para que guarde el nombre recibido en `self.nombre`.
+=== inicial
+class Persona:
+    def __init__(self, nombre):
+        # guarda el nombre en el objeto
+        pass
+
+=== solucion
+class Persona:
+    def __init__(self, nombre):
+        self.nombre = nombre
+=== pista
+`self.nombre = nombre`: a la izquierda, el atributo del objeto; a la derecha, el parámetro.
+=== prueba
+expr: Persona("Ana").nombre
+igual: "Ana"
+=== prueba
+expr: Persona("Luis").nombre
+igual: "Luis"
+
+=== ejercicio
+id: oco-dos-parametros
+titulo: Varios datos iniciales
+=== enunciado
+Un constructor puede recibir tantos datos como necesites. Al crear el objeto se pasan en el mismo orden:
+
+```python
+class Libro:
+    def __init__(self, titulo, paginas):
+        self.titulo = titulo
+        self.paginas = paginas
+
+mi_libro = Libro("Dune", 600)
+```
+
+**Tu turno:** completa el constructor de `Rectangulo` para guardar `ancho` y `alto`.
+=== inicial
+class Rectangulo:
+    def __init__(self, ancho, alto):
+        pass
+
+=== solucion
+class Rectangulo:
+    def __init__(self, ancho, alto):
+        self.ancho = ancho
+        self.alto = alto
+=== prueba
+expr: Rectangulo(3, 4).ancho
+igual: 3
+=== prueba
+expr: Rectangulo(3, 4).alto
+igual: 4
+
+=== ejercicio
+id: oco-defecto
+titulo: Valores por defecto
+=== enunciado
+Los parámetros del constructor también pueden tener **valor por defecto**, así que no hace falta pasarlos al crear el objeto:
+
+```python
+class Boton:
+    def __init__(self, texto, visible=True):
+        self.texto = texto
+        self.visible = visible
+
+Boton("OK")            # visible = True
+Boton("OK", False)     # visible = False
+```
+
+**Tu turno:** completa `Usuario` para que guarde `nombre` y `activo` (que por defecto es `True`).
+=== inicial
+class Usuario:
+    def __init__(self, nombre, activo=True):
+        pass
+
+=== solucion
+class Usuario:
+    def __init__(self, nombre, activo=True):
+        self.nombre = nombre
+        self.activo = activo
+=== prueba
+expr: Usuario("Eva").nombre
+igual: "Eva"
+=== prueba
+expr: Usuario("Ana").activo
+igual: True
+=== prueba
+expr: Usuario("Luis", False).activo
+igual: False
+
+=== ejercicio
+id: oco-calculados
+titulo: Atributos calculados al crear
+=== enunciado
+En el constructor no solo guardas los datos recibidos: también puedes **calcular** otros atributos a partir de ellos.
+
+**Tu turno:** completa `Cuadrado(lado)` para que el objeto tenga tres atributos:
+- `lado`: el lado recibido
+- `area`: lado × lado
+- `perimetro`: 4 × lado
+=== inicial
+class Cuadrado:
+    def __init__(self, lado):
+        pass
+
+=== solucion
+class Cuadrado:
+    def __init__(self, lado):
+        self.lado = lado
+        self.area = lado * lado
+        self.perimetro = 4 * lado
+=== prueba
+expr: Cuadrado(5).lado
+igual: 5
+=== prueba
+expr: Cuadrado(5).area
+igual: 25
+=== prueba
+expr: Cuadrado(5).perimetro
+igual: 20
+
+=== ejercicio
+id: oco-lista-propia
+titulo: Cada objeto, su propia lista
+=== enunciado
+Si un objeto necesita una lista, créala **dentro del constructor** (`self.productos = []`). Así cada objeto tiene **su propia lista**. Si la guardaras como atributo de clase, todos los objetos compartirían la misma.
+
+**Tu turno:** completa `Carrito` para que cada carrito empiece con un atributo `productos` que sea una lista vacía.
+=== inicial
+class Carrito:
+    def __init__(self):
+        pass
+
+=== solucion
+class Carrito:
+    def __init__(self):
+        self.productos = []
+=== pista
+`self.productos = []`
+=== prueba
+expr: Carrito().productos
+igual: []
+=== prueba
+antes: c1 = Carrito(); c1.productos.append("pan"); c2 = Carrito()
+expr: c2.productos
+igual: []
+desc: Un carrito nuevo no comparte productos con otro
+=== prueba
+antes: c1 = Carrito(); c1.productos.append("pan")
+expr: c1.productos
+igual: ["pan"]

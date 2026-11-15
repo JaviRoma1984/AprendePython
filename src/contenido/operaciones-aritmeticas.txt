@@ -1,0 +1,196 @@
+=== tema
+id: operaciones-aritmeticas
+nivel: basico
+titulo: Operaciones aritméticas
+resumen: Suma, resta, multiplicación, divisiones, potencias, orden de las operaciones y operadores como +=.
+
+=== ejercicio
+id: oa-basicas
+titulo: Suma, resta y producto
+=== enunciado
+Python se puede usar como una calculadora. Los operadores básicos son:
+
+- `+` suma
+- `-` resta
+- `*` multiplicación
+
+```python
+a = 7
+b = 3
+print(a + b)   # 10
+```
+
+**Tu turno:** con las variables `a` y `b` que ya existen, crea `suma`, `resta` (a menos b) y `producto`.
+=== inicial
+a = 7
+b = 3
+# Crea suma, resta y producto
+
+=== solucion
+a = 7
+b = 3
+suma = a + b
+resta = a - b
+producto = a * b
+=== pista
+`suma = a + b`, `resta = a - b`, `producto = a * b`.
+=== prueba
+expr: suma
+igual: 10
+=== prueba
+expr: resta
+igual: 4
+=== prueba
+expr: producto
+igual: 21
+
+=== ejercicio
+id: oa-divisiones
+titulo: Tres formas de dividir
+=== enunciado
+Python tiene tres operadores relacionados con la división:
+
+- `/` división normal: **siempre** da un número con decimales (`float`). `17 / 5` → `3.4`
+- `//` división entera: se queda solo con la parte entera. `17 // 5` → `3`
+- `%` resto de la división. `17 % 5` → `2`
+
+**Tu turno:** con `a` y `b`, crea `division`, `entera` y `resto`.
+=== inicial
+a = 17
+b = 5
+# Crea division, entera y resto
+
+=== solucion
+a = 17
+b = 5
+division = a / b
+entera = a // b
+resto = a % b
+=== pista
+Los tres operadores son `/`, `//` y `%`, uno para cada variable.
+=== prueba
+expr: division
+igual: 3.4
+=== prueba
+expr: entera
+igual: 3
+=== prueba
+expr: resto
+igual: 2
+
+=== ejercicio
+id: oa-potencias
+titulo: Potencias y raíces
+=== enunciado
+La potencia se escribe con dos asteriscos: `2 ** 3` es 2 elevado a 3, es decir `8`.
+
+Una **raíz cuadrada** es lo mismo que elevar a `0.5`: `9 ** 0.5` da `3.0`.
+
+**Tu turno:**
+- Guarda en `cuadrado` el resultado de 6 elevado a 2.
+- Guarda en `raiz` la raíz cuadrada de 144.
+=== inicial
+# Crea cuadrado y raiz
+
+=== solucion
+cuadrado = 6 ** 2
+raiz = 144 ** 0.5
+=== pista
+`cuadrado = 6 ** 2` y `raiz = 144 ** 0.5` (el resultado de la raíz es `12.0`, con decimal).
+=== prueba
+expr: cuadrado
+igual: 36
+=== prueba
+expr: raiz
+igual: 12.0
+
+=== ejercicio
+id: oa-precedencia
+titulo: El orden de las operaciones
+=== enunciado
+Python respeta el orden matemático: primero los **paréntesis**, luego las **potencias**, después `*` `/` `//` `%` y por último `+` `-`.
+
+```python
+2 + 3 * 4      # 14  (primero 3 * 4)
+(2 + 3) * 4    # 20  (primero el paréntesis)
+```
+
+**Tu turno:** guarda en `resultado` el valor de esta operación: **(2 + 3) × 4 − 6 ÷ 2**.
+=== inicial
+# Guarda en resultado: (2 + 3) * 4 - 6 / 2
+
+=== solucion
+resultado = (2 + 3) * 4 - 6 / 2
+=== pista
+Se escribe casi igual que en matemáticas: `resultado = (2 + 3) * 4 - 6 / 2`. Recuerda que `/` da un número con decimales.
+=== prueba
+expr: resultado
+igual: 17.0
+
+=== ejercicio
+id: oa-asignacion
+titulo: Operadores como +=
+=== enunciado
+Cuando quieres cambiar una variable usando su propio valor, hay una forma abreviada:
+
+| forma larga | forma corta |
+| --- | --- |
+| `x = x + 5` | `x += 5` |
+
+Lo mismo con `-=`, `*=`, `/=`...
+
+```python
+puntos = 10
+puntos += 3     # 13
+puntos *= 2     # 26
+```
+
+**Tu turno:** parte de `total = 10`. Súmale 5 con `+=`, multiplícalo por 2 con `*=` y réstale 4 con `-=`.
+=== inicial
+total = 10
+# Aplica += 5, luego *= 2 y luego -= 4
+
+=== solucion
+total = 10
+total += 5
+total *= 2
+total -= 4
+=== pista
+Tres líneas: `total += 5`, `total *= 2`, `total -= 4`. El resultado final es 26.
+=== prueba
+expr: total
+igual: 26
+=== exige
+patron: \+=
+mensaje: Usa el operador +=
+=== exige
+patron: \*=
+mensaje: Usa el operador *=
+=== exige
+patron: -=
+mensaje: Usa el operador -=
+
+=== ejercicio
+id: oa-horas-minutos
+titulo: Horas y minutos
+=== enunciado
+La división entera `//` y el resto `%` van muy bien juntos. Para convertir 135 minutos en horas y minutos:
+
+- las horas son `135 // 60` → `2`
+- los minutos que sobran son `135 % 60` → `15`
+
+**Tu turno:** a partir de `minutos_totales`, calcula `horas` y `minutos`.
+=== inicial
+minutos_totales = 135
+# Calcula horas y minutos
+
+=== solucion
+minutos_totales = 135
+horas = minutos_totales // 60
+minutos = minutos_totales % 60
+=== prueba
+expr: horas
+igual: 2
+=== prueba
+expr: minutos
+igual: 15

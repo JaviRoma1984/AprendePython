@@ -1,0 +1,196 @@
+=== tema
+id: tuplas
+nivel: avanzado
+titulo: Tuplas
+resumen: Secuencias que no se pueden modificar: crearlas, indexarlas, desempaquetarlas y usarlas para devolver varios valores.
+
+=== ejercicio
+id: tp-crear
+titulo: Crear tuplas
+=== enunciado
+Una **tupla** es como una lista, pero **inmutable**: una vez creada no se puede cambiar. Se escribe con paréntesis:
+
+```python
+punto = (3, 4)
+```
+
+Atención: una tupla de **un solo elemento** necesita una coma al final, `(5,)`. Sin la coma, `(5)` es solo el número 5 entre paréntesis.
+
+**Tu turno:** crea `punto` con los valores `3` y `4`, y `uno` como una tupla de un solo elemento, el `5`.
+=== inicial
+# Crea punto y uno
+
+=== solucion
+punto = (3, 4)
+uno = (5,)
+=== pista
+`uno = (5,)` — la coma después del 5 es imprescindible.
+=== prueba
+expr: punto
+igual: (3, 4)
+=== prueba
+expr: uno
+igual: (5,)
+
+=== ejercicio
+id: tp-indices
+titulo: Índices y rebanadas
+=== enunciado
+Como en las listas, se accede por posición (empezando en 0). Los índices **negativos** cuentan desde el final (`-1` es el último). Una **rebanada** `t[a:b]` toma desde la posición `a` hasta la `b - 1`:
+
+```python
+letras = ("a", "b", "c", "d")
+letras[0]      # "a"
+letras[-1]     # "d"
+letras[1:3]    # ("b", "c")
+```
+
+**Tu turno:** de la tupla `dias`, guarda en `primero` el primer día, en `ultimo` el último, y en `medio` los tres días centrales (de martes a jueves).
+=== inicial
+dias = ("lunes", "martes", "miércoles", "jueves", "viernes")
+# primero: el primer día
+# ultimo: el último día
+# medio: de martes a jueves (una rebanada)
+
+=== solucion
+dias = ("lunes", "martes", "miércoles", "jueves", "viernes")
+primero = dias[0]
+ultimo = dias[-1]
+medio = dias[1:4]
+=== pista
+`dias[1:4]` toma las posiciones 1, 2 y 3. Para el último usa `dias[-1]`.
+=== prueba
+expr: primero
+igual: "lunes"
+=== prueba
+expr: ultimo
+igual: "viernes"
+=== prueba
+expr: medio
+igual: ("martes", "miércoles", "jueves")
+
+=== ejercicio
+id: tp-desempaquetar
+titulo: Desempaquetar
+=== enunciado
+Puedes repartir los elementos de una tupla en varias variables de una sola vez. Se llama **desempaquetar** y debe haber tantas variables como elementos:
+
+```python
+color = (255, 128, 0)
+rojo, verde, azul = color
+```
+
+**Tu turno:** desempaqueta `coordenadas` en las variables `x`, `y` y `z`.
+=== inicial
+coordenadas = (10, 20, 30)
+# Desempaqueta en x, y, z
+
+=== solucion
+coordenadas = (10, 20, 30)
+x, y, z = coordenadas
+=== prueba
+expr: x
+igual: 10
+=== prueba
+expr: y
+igual: 20
+=== prueba
+expr: z
+igual: 30
+
+=== ejercicio
+id: tp-inmutable
+titulo: Modificar una tupla (con truco)
+=== enunciado
+Las tuplas **no se pueden modificar**: `colores[0] = "azul"` provoca un `TypeError`. Pero puedes crear una tupla nueva: conviértela en lista, cambia lo que quieras y vuelve a convertirla.
+
+```python
+t = (1, 2)
+lista = list(t)  # [1, 2]
+lista[0] = 9     # [9, 2]
+t = tuple(lista) # (9, 2)
+```
+
+**Tu turno:** cambia el primer elemento de `colores` por `"azul"`. Al final, `colores` debe ser la tupla `("azul", "verde")`.
+=== inicial
+colores = ("rojo", "verde")
+# Cambia "rojo" por "azul" (colores debe seguir siendo una tupla)
+
+=== solucion
+colores = ("rojo", "verde")
+lista = list(colores)
+lista[0] = "azul"
+colores = tuple(lista)
+=== pista
+Tres pasos: `lista = list(colores)`, `lista[0] = "azul"`, `colores = tuple(lista)`.
+=== prueba
+expr: colores
+igual: ("azul", "verde")
+=== exige
+patron: \btuple\s*\(
+mensaje: Vuelve a convertir con tuple()
+
+=== ejercicio
+id: tp-minmax
+titulo: Devolver el mínimo y el máximo
+=== enunciado
+Ya viste que devolver varios valores separados por comas devuelve **una tupla**. Es muy cómodo para funciones que calculan más de una cosa. Para obtener el menor y el mayor de una lista existen `min()` y `max()`.
+
+**Tu turno:** escribe `min_max(numeros)` que devuelva una tupla `(menor, mayor)`. Ejemplo: `min_max([3, 1, 4, 1, 5])` → `(1, 5)`.
+=== inicial
+def min_max(numeros):
+    pass
+
+=== solucion
+def min_max(numeros):
+    return min(numeros), max(numeros)
+=== pista
+`return min(numeros), max(numeros)`
+=== prueba
+expr: min_max([3, 1, 4, 1, 5])
+igual: (1, 5)
+=== prueba
+expr: min_max([7])
+igual: (7, 7)
+=== prueba
+expr: min_max([-2, -8, 0])
+igual: (-8, 0)
+
+=== ejercicio
+id: tp-metodos
+titulo: count, index y len
+=== enunciado
+Como son inmutables, las tuplas solo tienen dos métodos:
+
+- `count(valor)`: cuántas veces aparece.
+- `index(valor)`: en qué posición aparece por primera vez.
+
+Y `len(tupla)` dice cuántos elementos tiene.
+
+**Tu turno:** de la tupla `notas`, guarda en `veces` cuántas veces aparece el `7`, en `posicion` la posición del `9` y en `cantidad` cuántos elementos hay en total.
+=== inicial
+notas = (7, 9, 7, 10, 7)
+# veces: cuántos 7 hay
+# posicion: en qué posición está el 9
+# cantidad: cuántas notas hay
+
+=== solucion
+notas = (7, 9, 7, 10, 7)
+veces = notas.count(7)
+posicion = notas.index(9)
+cantidad = len(notas)
+=== prueba
+expr: veces
+igual: 3
+=== prueba
+expr: posicion
+igual: 1
+=== prueba
+expr: cantidad
+igual: 5
+=== exige
+patron: \.\s*count\s*\(
+mensaje: Usa el método count()
+=== exige
+patron: \.\s*index\s*\(
+mensaje: Usa el método index()

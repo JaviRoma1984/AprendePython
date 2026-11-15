@@ -1,0 +1,214 @@
+=== tema
+id: sets
+nivel: avanzado
+titulo: Sets
+resumen: Conjuntos: sin repetidos y sin orden. Añadir, quitar, unión, intersección y diferencia.
+
+=== ejercicio
+id: st-unicos
+titulo: Quitar repetidos
+=== enunciado
+Un **set** (conjunto) es una colección **sin elementos repetidos** y **sin orden**. Se escribe con llaves, `{1, 2, 3}`, o se crea a partir de otra colección con `set(...)`:
+
+```python
+numeros = [1, 1, 2, 2, 3]
+sin_repetir = set(numeros)    # {1, 2, 3}
+```
+
+Es la forma más rápida de quitar duplicados.
+
+**Tu turno:** crea el set `unicos` con los valores de la lista `repetidos`, sin repeticiones.
+=== inicial
+repetidos = [4, 4, 5, 6, 6, 6]
+# Crea el set unicos
+
+=== solucion
+repetidos = [4, 4, 5, 6, 6, 6]
+unicos = set(repetidos)
+=== prueba
+expr: unicos
+igual: {4, 5, 6}
+
+=== ejercicio
+id: st-add-remove
+titulo: Añadir y quitar elementos
+=== enunciado
+- `add(valor)` añade un elemento (si ya estaba, no pasa nada).
+- `remove(valor)` lo quita, pero da error si no existe.
+- `discard(valor)` lo quita y **no** da error si no existe.
+
+```python
+frutas = {"pera"}
+frutas.add("uva")        # {"pera", "uva"}
+frutas.discard("kiwi")   # no existe, no pasa nada
+```
+
+Ojo: `{}` vacío es un **diccionario**; el set vacío se escribe `set()`.
+
+**Tu turno:** añade `"azul"` al set `colores` y quita `"verde"`.
+=== inicial
+colores = {"rojo", "verde"}
+# Añade "azul" y quita "verde"
+
+=== solucion
+colores = {"rojo", "verde"}
+colores.add("azul")
+colores.remove("verde")
+=== prueba
+expr: colores
+igual: {"rojo", "azul"}
+=== exige
+patron: \.\s*add\s*\(
+mensaje: Usa el método add()
+
+=== ejercicio
+id: st-operaciones
+titulo: Unión, intersección y diferencia
+=== enunciado
+Los sets se combinan como en matemáticas:
+
+| operación | operador | resultado |
+| --- | --- | --- |
+| unión | `a \| b` | todo lo que está en a o en b |
+| intersección | `a & b` | solo lo que está en los dos |
+| diferencia | `a - b` | lo que está en a y no en b |
+
+**Tu turno:** crea `union`, `interseccion` y `diferencia` (a menos b) con los sets `a` y `b`.
+=== inicial
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+# Crea union, interseccion y diferencia (a - b)
+
+=== solucion
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+union = a | b
+interseccion = a & b
+diferencia = a - b
+=== pista
+También valen los métodos: `a.union(b)`, `a.intersection(b)` y `a.difference(b)`.
+=== prueba
+expr: union
+igual: {1, 2, 3, 4, 5, 6}
+=== prueba
+expr: interseccion
+igual: {3, 4}
+=== prueba
+expr: diferencia
+igual: {1, 2}
+
+=== ejercicio
+id: st-vocales
+titulo: Pertenencia con in
+=== enunciado
+Con `in` se comprueba si un elemento está en un set, y en los sets esa comprobación es **muy rápida**:
+
+```python
+primos = {2, 3, 5, 7}
+3 in primos     # True
+4 in primos     # False
+```
+
+**Tu turno:** el set `vocales` ya existe. Escribe `contar_vocales(texto)` que devuelva cuántas letras de `texto` son vocales (en minúscula).
+=== inicial
+vocales = {"a", "e", "i", "o", "u"}
+
+def contar_vocales(texto):
+    pass
+
+=== solucion
+vocales = {"a", "e", "i", "o", "u"}
+
+def contar_vocales(texto):
+    cantidad = 0
+    for letra in texto:
+        if letra in vocales:
+            cantidad += 1
+    return cantidad
+=== pista
+Recorre el texto con `for letra in texto:` y, si `letra in vocales`, suma 1 a un contador.
+=== prueba
+expr: contar_vocales("murcielago")
+igual: 5
+=== prueba
+expr: contar_vocales("python")
+igual: 1
+=== prueba
+expr: contar_vocales("rhythm")
+igual: 0
+=== prueba
+expr: contar_vocales("banana")
+igual: 3
+
+=== ejercicio
+id: st-repetidos
+titulo: ¿Hay elementos repetidos?
+=== enunciado
+Al convertir una lista en set se pierden los repetidos, así que **la longitud baja** si había alguno:
+
+```python
+len([1, 2, 2])        # 3
+len(set([1, 2, 2]))   # 2
+```
+
+**Tu turno:** escribe `hay_repetidos(lista)` que devuelva `True` si la lista tiene algún elemento repetido y `False` si todos son distintos.
+=== inicial
+def hay_repetidos(lista):
+    pass
+
+=== solucion
+def hay_repetidos(lista):
+    return len(set(lista)) != len(lista)
+=== pista
+Compara `len(set(lista))` con `len(lista)`: si son distintos, había repetidos.
+=== prueba
+expr: hay_repetidos([1, 2, 3])
+igual: False
+=== prueba
+expr: hay_repetidos([1, 2, 2])
+igual: True
+=== prueba
+expr: hay_repetidos([])
+igual: False
+=== prueba
+expr: hay_repetidos(["a", "b", "a"])
+igual: True
+
+=== ejercicio
+id: st-subconjuntos
+titulo: Subconjuntos y disjuntos
+=== enunciado
+- `a.issubset(b)` es `True` si **todos** los elementos de `a` están también en `b`.
+- `a.isdisjoint(b)` es `True` si `a` y `b` **no tienen nada en común**.
+
+```python
+{1, 2}.issubset({1, 2, 3})     # True
+{1, 2}.isdisjoint({3, 4})      # True
+```
+
+**Tu turno:** guarda en `es_subconjunto` si `pequeno` está contenido en `grande`, y en `son_disjuntos` si `grande` y `otro` no tienen elementos en común.
+=== inicial
+pequeno = {1, 2}
+grande = {1, 2, 3, 4}
+otro = {8, 9}
+# es_subconjunto: ¿pequeno está dentro de grande?
+# son_disjuntos: ¿grande y otro no comparten nada?
+
+=== solucion
+pequeno = {1, 2}
+grande = {1, 2, 3, 4}
+otro = {8, 9}
+es_subconjunto = pequeno.issubset(grande)
+son_disjuntos = grande.isdisjoint(otro)
+=== prueba
+expr: es_subconjunto
+igual: True
+=== prueba
+expr: son_disjuntos
+igual: True
+=== exige
+patron: \.\s*issubset\s*\(
+mensaje: Usa issubset()
+=== exige
+patron: \.\s*isdisjoint\s*\(
+mensaje: Usa isdisjoint()

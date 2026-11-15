@@ -1,0 +1,190 @@
+=== tema
+id: diccionarios
+nivel: avanzado
+titulo: Diccionarios
+resumen: Guardar datos como pares clave:valor, leerlos, modificarlos, recorrerlos y contarlos.
+
+=== ejercicio
+id: dic-crear
+titulo: Crear un diccionario
+=== enunciado
+Un **diccionario** guarda pares `clave: valor` entre llaves. Para leer un valor se usa su clave entre corchetes:
+
+```python
+alumno = {"nombre": "Luis", "curso": 2}
+print(alumno["nombre"])    # Luis
+```
+
+Las claves suelen ser textos y no se pueden repetir.
+
+**Tu turno:** crea la variable `persona` con dos pares: la clave `"nombre"` con el valor `"Ana"` y la clave `"edad"` con el valor `30`.
+=== inicial
+# Crea el diccionario persona
+
+=== solucion
+persona = {"nombre": "Ana", "edad": 30}
+=== pista
+`persona = {"nombre": "Ana", "edad": 30}` — los pares se separan con comas y cada clave y valor con dos puntos.
+=== prueba
+expr: persona
+igual: {"nombre": "Ana", "edad": 30}
+
+=== ejercicio
+id: dic-leer
+titulo: Leer valores y get()
+=== enunciado
+- `d["clave"]` da el valor, pero si la clave **no existe** provoca un error (`KeyError`).
+- `d.get("clave")` da `None` si no existe, sin error.
+- `d.get("clave", valor_por_defecto)` da ese valor por defecto si no existe.
+
+```python
+animal = {"nombre": "Rex"}
+animal.get("edad")          # None
+animal.get("edad", 0)       # 0
+```
+
+**Tu turno:** crea `marca` (con corchetes), `anio` (con `get`) y `color` con `get` indicando `"desconocido"` como valor por defecto (el coche no tiene color).
+=== inicial
+coche = {"marca": "Seat", "modelo": "Ibiza", "anio": 2020}
+# marca: el valor de la clave "marca"
+# anio: el valor de "anio" (usa get)
+# color: el valor de "color", o "desconocido" si no existe (usa get)
+
+=== solucion
+coche = {"marca": "Seat", "modelo": "Ibiza", "anio": 2020}
+marca = coche["marca"]
+anio = coche.get("anio")
+color = coche.get("color", "desconocido")
+=== prueba
+expr: marca
+igual: "Seat"
+=== prueba
+expr: anio
+igual: 2020
+=== prueba
+expr: color
+igual: "desconocido"
+=== exige
+patron: \.\s*get\s*\(
+mensaje: Usa el método get()
+
+=== ejercicio
+id: dic-modificar
+titulo: Modificar y añadir
+=== enunciado
+Asignar a una clave **existente** cambia su valor; asignar a una clave **nueva** la añade:
+
+```python
+datos = {"a": 1}
+datos["a"] = 10     # cambia
+datos["b"] = 2      # añade
+```
+
+**Tu turno:** a `mascota`, cámbiale la edad a `4` y añade la clave `"raza"` con el valor `"Labrador"`.
+=== inicial
+mascota = {"nombre": "Rex", "edad": 3}
+# Cambia la edad a 4 y añade la raza "Labrador"
+
+=== solucion
+mascota = {"nombre": "Rex", "edad": 3}
+mascota["edad"] = 4
+mascota["raza"] = "Labrador"
+=== prueba
+expr: mascota
+igual: {"nombre": "Rex", "edad": 4, "raza": "Labrador"}
+
+=== ejercicio
+id: dic-eliminar
+titulo: Eliminar claves
+=== enunciado
+- `del d["clave"]` elimina esa pareja.
+- `d.pop("clave")` también la elimina y además **devuelve** el valor que tenía.
+
+```python
+stock = {"lapiz": 3, "goma": 1}
+del stock["goma"]
+cantidad = stock.pop("lapiz")    # cantidad = 3; stock queda vacío
+```
+
+**Tu turno:** elimina `"peras"` con `del`, y saca `"kiwis"` con `pop`, guardando su valor en `vendido`. Solo debe quedar `"manzanas"`.
+=== inicial
+inventario = {"manzanas": 5, "peras": 0, "kiwis": 12}
+# Elimina "peras" con del
+# Saca "kiwis" con pop y guarda su valor en vendido
+
+=== solucion
+inventario = {"manzanas": 5, "peras": 0, "kiwis": 12}
+del inventario["peras"]
+vendido = inventario.pop("kiwis")
+=== prueba
+expr: inventario
+igual: {"manzanas": 5}
+=== prueba
+expr: vendido
+igual: 12
+=== exige
+patron: \bdel\b
+mensaje: Usa del
+=== exige
+patron: \.\s*pop\s*\(
+mensaje: Usa el método pop()
+
+=== ejercicio
+id: dic-recorrer
+titulo: Recorrer con items()
+=== enunciado
+`d.items()` da cada pareja `(clave, valor)`, y se puede recorrer con `for` desempaquetándola en dos variables:
+
+```python
+notas = {"Ana": 8, "Luis": 6}
+for nombre, nota in notas.items():
+    print(nombre, nota)
+```
+
+**Tu turno:** imprime una línea por producto con el formato `producto: precio`.
+=== inicial
+precios = {"pan": 1.2, "leche": 0.9, "huevos": 2.5}
+# Imprime: pan: 1.2   (una línea por producto)
+
+=== solucion
+precios = {"pan": 1.2, "leche": 0.9, "huevos": 2.5}
+for producto, precio in precios.items():
+    print(f"{producto}: {precio}")
+=== pista
+`for producto, precio in precios.items():` y dentro `print(f"{producto}: {precio}")`.
+=== salida
+pan: 1.2
+leche: 0.9
+huevos: 2.5
+=== exige
+patron: \.\s*items\s*\(
+mensaje: Recorre el diccionario con items()
+
+=== ejercicio
+id: dic-contar-letras
+titulo: Contar letras con un diccionario
+=== enunciado
+Un diccionario es perfecto para **contar**: la clave es lo que cuentas y el valor, cuántas veces ha aparecido. Con `d.get(clave, 0)` obtienes el contador actual (0 si aún no existe) y le sumas 1.
+
+**Tu turno:** escribe `contar_letras(texto)` que devuelva un diccionario con cuántas veces aparece cada letra. Ejemplo: `contar_letras("banana")` → `{"b": 1, "a": 3, "n": 2}`.
+=== inicial
+def contar_letras(texto):
+    pass
+
+=== solucion
+def contar_letras(texto):
+    conteo = {}
+    for letra in texto:
+        conteo[letra] = conteo.get(letra, 0) + 1
+    return conteo
+=== pista
+Crea `conteo = {}`, recorre el texto letra a letra y haz `conteo[letra] = conteo.get(letra, 0) + 1`. Al final `return conteo`.
+=== prueba
+expr: contar_letras("hola")
+igual: {"h": 1, "o": 1, "l": 1, "a": 1}
+=== prueba
+expr: contar_letras("banana")
+igual: {"b": 1, "a": 3, "n": 2}
+=== prueba
+expr: contar_letras("")
+igual: {}

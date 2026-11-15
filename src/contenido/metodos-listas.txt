@@ -1,0 +1,201 @@
+=== tema
+id: metodos-listas
+nivel: basico
+titulo: Métodos de listas
+resumen: append, insert, remove, pop, sort, count, index y extend.
+
+=== ejercicio
+id: ml-append
+titulo: Añadir al final con append
+=== enunciado
+Una **lista** guarda varios valores en orden, entre corchetes. Los **métodos** son funciones que pertenecen al objeto y se llaman con un punto: `lista.metodo()`.
+
+`append(valor)` añade un elemento **al final** de la lista:
+
+```python
+numeros = [1, 2]
+numeros.append(3)    # numeros ahora es [1, 2, 3]
+```
+
+**Tu turno:** añade `"uva"` al final de la lista `frutas`.
+=== inicial
+frutas = ["manzana", "pera"]
+# Añade "uva" al final
+
+=== solucion
+frutas = ["manzana", "pera"]
+frutas.append("uva")
+=== prueba
+expr: frutas
+igual: ["manzana", "pera", "uva"]
+=== exige
+patron: \.\s*append\s*\(
+mensaje: Usa el método append()
+
+=== ejercicio
+id: ml-insert-remove
+titulo: insert y remove
+=== enunciado
+- `insert(posicion, valor)` mete un valor en esa posición. Las posiciones empiezan en **0**.
+- `remove(valor)` elimina la primera vez que aparece ese valor.
+
+```python
+letras = ["a", "c"]
+letras.insert(1, "b")   # ["a", "b", "c"]
+letras.remove("a")      # ["b", "c"]
+```
+
+**Tu turno:** en la lista `numeros`, inserta el `3` en la posición `2` y después elimina el `5`. Debe quedar `[1, 2, 3, 4]`.
+=== inicial
+numeros = [1, 2, 4, 5]
+# Inserta el 3 en la posición 2 y elimina el 5
+
+=== solucion
+numeros = [1, 2, 4, 5]
+numeros.insert(2, 3)
+numeros.remove(5)
+=== pista
+`numeros.insert(2, 3)` y `numeros.remove(5)`. Fíjate en el orden: primero la posición, luego el valor.
+=== prueba
+expr: numeros
+igual: [1, 2, 3, 4]
+=== exige
+patron: \.\s*insert\s*\(
+mensaje: Usa el método insert()
+=== exige
+patron: \.\s*remove\s*\(
+mensaje: Usa el método remove()
+
+=== ejercicio
+id: ml-pop
+titulo: Sacar el último con pop
+=== enunciado
+`pop()` **quita** el último elemento de la lista y lo **devuelve**, así que puedes guardarlo en una variable:
+
+```python
+cola = ["a", "b", "c"]
+sacado = cola.pop()    # sacado = "c"; cola = ["a", "b"]
+```
+
+(Si le pasas una posición, `pop(0)` quita el primero.)
+
+**Tu turno:** saca el último elemento de `pila` y guárdalo en la variable `ultimo`.
+=== inicial
+pila = [10, 20, 30]
+# Saca el último elemento y guárdalo en ultimo
+
+=== solucion
+pila = [10, 20, 30]
+ultimo = pila.pop()
+=== prueba
+expr: ultimo
+igual: 30
+=== prueba
+expr: pila
+igual: [10, 20]
+=== exige
+patron: \.\s*pop\s*\(
+mensaje: Usa el método pop()
+
+=== ejercicio
+id: ml-sort
+titulo: Ordenar con sort
+=== enunciado
+`sort()` ordena la lista **sobre sí misma** (la modifica) de menor a mayor. Con `reverse=True` la ordena de mayor a menor:
+
+```python
+notas = [7, 3, 9]
+notas.sort()                 # [3, 7, 9]
+notas.sort(reverse=True)     # [9, 7, 3]
+```
+
+**Tu turno:** ordena la lista `puntos` de **mayor a menor**.
+=== inicial
+puntos = [5, 2, 9, 1]
+# Ordénala de mayor a menor
+
+=== solucion
+puntos = [5, 2, 9, 1]
+puntos.sort(reverse=True)
+=== pista
+`puntos.sort(reverse=True)`
+=== prueba
+expr: puntos
+igual: [9, 5, 2, 1]
+=== exige
+patron: \.\s*sort\s*\(
+mensaje: Usa el método sort() de la lista
+
+=== ejercicio
+id: ml-count-index
+titulo: Contar y buscar
+=== enunciado
+- `count(valor)` dice cuántas veces aparece un valor.
+- `index(valor)` dice en qué posición aparece por primera vez (empezando por 0).
+
+```python
+vocales = ["a", "e", "a"]
+vocales.count("a")   # 2
+vocales.index("e")   # 1
+```
+
+**Tu turno:** guarda en `cuantas_a` cuántas veces aparece `"a"` en `letras`, y en `pos_c` la posición de `"c"`.
+=== inicial
+letras = ["a", "b", "a", "c", "a"]
+# cuantas_a: cuántas "a" hay
+# pos_c: en qué posición está "c"
+
+=== solucion
+letras = ["a", "b", "a", "c", "a"]
+cuantas_a = letras.count("a")
+pos_c = letras.index("c")
+=== prueba
+expr: cuantas_a
+igual: 3
+=== prueba
+expr: pos_c
+igual: 3
+=== exige
+patron: \.\s*count\s*\(
+mensaje: Usa el método count()
+=== exige
+patron: \.\s*index\s*\(
+mensaje: Usa el método index()
+
+=== ejercicio
+id: ml-extend
+titulo: Unir listas con extend
+=== enunciado
+`append` añade **un** elemento (aunque sea una lista entera, que quedaría dentro de otra). `extend(otra_lista)` añade **todos los elementos** de otra lista, uno por uno. Y `len(lista)` devuelve cuántos elementos tiene.
+
+```python
+a = [1, 2]
+a.extend([3, 4])     # a = [1, 2, 3, 4]
+len(a)               # 4
+```
+
+**Tu turno:** añade a la lista `a` todos los elementos de `b` y guarda en `total` cuántos elementos tiene `a` después.
+=== inicial
+a = [1, 2]
+b = [3, 4]
+# Añade a "a" todos los elementos de "b"
+# Guarda en total la cantidad de elementos de "a"
+
+=== solucion
+a = [1, 2]
+b = [3, 4]
+a.extend(b)
+total = len(a)
+=== prueba
+expr: a
+igual: [1, 2, 3, 4]
+=== prueba
+expr: total
+igual: 4
+=== prueba
+expr: b
+igual: [3, 4]
+desc: La lista b no cambia
+=== exige
+patron: \.\s*extend\s*\(
+mensaje: Usa el método extend()
